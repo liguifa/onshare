@@ -4,6 +4,7 @@ import store from "./store"
 import Home from "./views/Home.vue"
 import Editer from './views/Editer.vue'
 import Login from './views/Login.vue'
+import Register from './views/Register.vue'
 
 Vue.use(Router)
 
@@ -22,16 +23,18 @@ const router = new Router({
     {
       path: '/editer',
       name: 'editer',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: Editer
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-	if(to.name != "login"){
+	if(to.name != "login" && to.name != "register"){
 		if(!store.getters.username){
 			next("/login")
 		} else {

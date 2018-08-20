@@ -1,7 +1,8 @@
-const session = require("./session");
+// const session = require("./session");
 const $ = require("../common/common");
 const fs = require("fs");
 const streamLength = require("stream-length");
+const session = require('express-session')
 
 module.exports = class controller {
     constructor(request, response) {
@@ -16,7 +17,8 @@ module.exports = class controller {
     }
 
     setCookie(key, value, isExpire) {
-        this.response.setHeader("set-cookie", `${key}=${value}${isExpire ? "" : (";expires=" + new Date("2229/1/1 1:1:1").toGMTString())};HttpOnly`);
+        console.log(value);
+        this.response.setHeader("Set-Cookie", `${key}=${value};${isExpire ? "" : (";expires=" + new Date("2229/1/1 1:1:1").toGMTString())};HttpOnly`);
     }
 
     getCookie(key) {
@@ -41,11 +43,13 @@ module.exports = class controller {
     }
 
     setSession(name, value) {
-        session[name] = value;
+        //session[name] = value;
+        this.request.session[name] = value;
     }
 
     getSession(name) {
-        return session[name];
+        // return session[name];
+        return this.reqyest.session[name];
     }
 
     buffer(buffer) {

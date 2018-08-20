@@ -1,5 +1,6 @@
 const config = require("../config/config");
 const sqlHelper = require("../common/sqlHelper");
+const $ = require("../common/common");
 
 module.exports = class userService {
     constructor() {
@@ -7,15 +8,34 @@ module.exports = class userService {
 
     async login(username, password) {
         let user = await sqlHelper.query(`select * from onshare_users where username='${username}'`);
-        console.log(user);
-        return user.length > 0 && user.password == password;
+        return user && user[0].password == $.string.encrypt(password);
     }
 
-    getUserByUsername(username) {
-        return sqlHelper.query(`select * from onlinefs_users where username='${username}'`);
-    }
-
-    changePhotoByUsername(username, photo) {
-        return sqlHelper.query(`update onlinefs_users set Photo = '${photo}' where username='${username}'`);
+    async register(username, password, rePassword) {
+        if(!(username && username.length > 0 && username.length < 10))
+        {
+            return {
+                isSuccess:false,
+                message:"用户名必须小于10个字符"
+            }
+        }
+        if(!(password && password.length > 5 && password.length < 17))
+        {
+            return {
+                isSuccess:false,
+                message:"密码必须在6到16个字符"
+            }
+        }
+        if(password != rePassword) {
+            return {
+                isSuccess:false,
+                message:"两次输入的密码不一致"
+            }
+        }
+        let user = await sqlHelper.query(`insert into onshare_users values('null','${username}','${$.string.encrypt(password)}')`);
+        return {
+            isSuccess:true,
+            message:"注册成功"
+        }
     }
 }

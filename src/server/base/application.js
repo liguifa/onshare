@@ -6,6 +6,7 @@ const formidable = require("formidable");
 const $ = require("../common/common");
 const userService = require("../services/userService");
 const fs = require("fs");
+const session = require('express-session')
 
 module.exports = class Application {
     constructor() {
@@ -132,6 +133,12 @@ module.exports = class Application {
 
     start() {
         //this.setCheckAuthority();
+        this.app.use(session({
+            secret: 'session_id',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: true }
+          }))
         this.setStatic();
         this.setGet();
         this.setJson();

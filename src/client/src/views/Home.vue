@@ -1,6 +1,6 @@
 <template>
 	<div class="onshare-home">
-		<div class="onshare-home-name"><h2>Guifa.Li</h2></div>
+		<div class="onshare-home-name"><h2>{{username}}</h2></div>
 		<ul>
 			<li v-for="document in documents" :key="document.id"><Document /></li>
 		</ul>
@@ -13,13 +13,17 @@ import Document from "../components/Document.vue";
 export default {
 	data(){
 		return {
-
+			
 		}
 	},
 	asyncComputed:{
 		async documents(){
 			console.log(this);
 			return await this.http.get("/documents");
+		},
+		username(){
+			console.log(this);
+			return this.$store.getters.username;
 		}
 	},
 	components:{
