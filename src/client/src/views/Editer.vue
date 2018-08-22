@@ -1,17 +1,40 @@
 <template>
   <div class="onshare-editer">
-    <Notepad />
+    <Button class="onshare-editer-back" shape="circle" icon="md-arrow-round-back" @click="back" />
+    <Notepad :document="document" @save="save" />
   </div>
 </template>
 
 <script>
 import Notepad from "../components/Notepad.vue";
+import Socket from 'socket.io-client'
 
 export default {
-  name: 'home',
+  data(){
+    return {
+      title:"",
+      content:""
+    }
+  },
   components: {
     Notepad
-  }
+  },
+  asyncComputed:{
+    async document(){
+      return await this.http.get(`/document`,{id:this.$route.params.id});
+    },
+  },
+  methods:{
+    save(content){
+      this.io.emit("update",content);
+    },
+    back(){
+      this.$router.push("/");
+    }
+  },
+  mounted() {
+    this.io = Socket("ws://localhost:3002");
+  },
 }
 </script>
 
@@ -19,5 +42,12 @@ export default {
   .onshare-editer{
     width: 100%;
     height: 100%;
+    position: relative;
+  }
+
+  .onshare-editer-back{
+    position: absolute;
+    top:2px;
+    left: 2px;
   }
 </style>

@@ -11,14 +11,14 @@ module.exports = class controller {
     }
 
     json(data) {
-        this.response.setHeader("Access-Control-Allow-Origin","*");
+        this.response.setHeader("Access-Control-Allow-Origin","http://localhost:8080");
+        this.response.setHeader("Access-Control-Allow-Credentials", "true");
         this.response.send(JSON.stringify(data));
         this.response.end();
     }
 
     setCookie(key, value, isExpire) {
-        console.log(value);
-        this.response.setHeader("Set-Cookie", `${key}=${value};${isExpire ? "" : (";expires=" + new Date("2229/1/1 1:1:1").toGMTString())};HttpOnly`);
+        this.response.setHeader("Set-Cookie", `${key}=${value};path=/${isExpire ? "" : (";expires=" + new Date("2229/1/1 1:1:1").toGMTString())};HttpOnly`);
     }
 
     getCookie(key) {

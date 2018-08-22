@@ -21,7 +21,7 @@ const router = new Router({
       component: Login
     },
     {
-      path: '/editer',
+      path: '/editer/:id',
       name: 'editer',
       component: Editer
     },

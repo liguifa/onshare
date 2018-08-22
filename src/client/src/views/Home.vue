@@ -1,33 +1,42 @@
 <template>
 	<div class="onshare-home">
-		<div class="onshare-home-name"><h2>{{username}}</h2></div>
+		<div class="onshare-home-name">
+			<h2>{{username}}</h2>
+			<Add />
+		</div>
 		<ul>
-			<li v-for="document in documents" :key="document.id"><Document /></li>
+			<li v-for="document in documents" :key="document.id">
+				<Document :id="document.id" :title="document.title" />
+			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
-import Document from "../components/Document.vue";
+import Document from "../components/Document";
+import Add from "../components/Add";
 
 export default {
 	data(){
 		return {
-			
 		}
 	},
 	asyncComputed:{
 		async documents(){
-			console.log(this);
-			return await this.http.get("/documents");
+			return await this.http.post("/documents");
 		},
 		username(){
-			console.log(this);
 			return this.$store.getters.username;
 		}
 	},
+	methods:{
+		add(){
+			
+		}
+	},
 	components:{
-		Document
+		Document,
+		Add
 	}
 }
 </script>
@@ -36,6 +45,7 @@ export default {
 	.onshare-home{
 		padding-top: 15px;
 		padding-left: 15px;
+		position: relative;
 	}
 
 	.onshare-home-name{

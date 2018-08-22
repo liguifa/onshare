@@ -3,12 +3,12 @@
     <div class="onshare-login-form">
       <h1>登录</h1>
       <Input class="onshare-login-form-item" v-model="username" placeholder="帐号" />
-      <Input class="onshare-login-form-item" v-model="password" placeholder="密码" />
+      <Input class="onshare-login-form-item" type="password" v-model="password" placeholder="密码" />
       <div class="onshare-login-form-item">
         <Checkbox v-model="remember">记住我</Checkbox>
         <router-link class="onshare-login-form-item-register" :to="'/register'" replace>没有帐号？</router-link>
       </div>
-      <Button class="onshare-login-form-item" type="primary" @click="login">登录</Button>
+      <Button class="onshare-login-form-item onshare-login-form-item-btn" type="primary" @click="login">登录</Button>
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
     async login(){
       let result = await this.http.post("/login/",{username:this.username,password:this.password});
       if(result.isSuccess){
-        this.$store.dispatch("login",this.username)
+        this.$store.dispatch("login",{username:this.username, remember:this.remember})
         this.$router.push("/")
       } else {
         this.$Message.error({
@@ -80,6 +80,11 @@ html,body{
 }
 
 .onshare-login-form-item{
+  margin: 10px 0px;
+  text-align: left;
+}
+
+.onshare-login-form-item-btn{
   margin: 10px 0px;
   text-align: center;
 }

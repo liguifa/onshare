@@ -17,7 +17,7 @@ export default {
     return {
       username:"",
       password:"",
-      rePassword:false
+      rePassword:""
     }
   },
   methods:{

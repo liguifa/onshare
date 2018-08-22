@@ -8,7 +8,11 @@ module.exports = class userService {
 
     async login(username, password) {
         let user = await sqlHelper.query(`select * from onshare_users where username='${username}'`);
-        return user && user[0].password == $.string.encrypt(password);
+        if(user && user[0].password == $.string.encrypt(password))
+        {
+            return user[0];
+        }
+        return false;
     }
 
     async register(username, password, rePassword) {

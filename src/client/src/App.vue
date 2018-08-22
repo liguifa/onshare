@@ -35,7 +35,7 @@ export default {
       isLoading:false
     }
   },
-  mounted(){
+  created(){
     this.http.interceptors(this);
   }
 }

@@ -3,8 +3,15 @@ import Axios from "axios"
 export default {
 	base:"http://127.0.0.1:3001",
 
-	async get(url){
-		let response = await Axios.get(`${this.base}${url}`);
+	async get(url,data){
+		let link = `${this.base}${url}`;
+		if(data){
+			link += "?";
+		}
+		for(let key in data){
+			link += `${key}=${data[key]}`; 
+		}
+		let response = await Axios.get(link);
 		return response.data;
 	},
 
@@ -19,8 +26,11 @@ export default {
 	},
 
 	interceptors(view){
+		console.log("1234567");
 		Axios.interceptors.request.use( config => {
 			view.isLoading = true;
+			config.withCredentials = true;
+			console.log(config);
 			return config;
 		}, error => {
 			view.$Message.error({

@@ -7,10 +7,13 @@ const $ = require("../common/common");
 const userService = require("../services/userService");
 const fs = require("fs");
 const session = require('express-session')
+const socket = require("socket.io");
+const http = require("http");
 
 module.exports = class Application {
     constructor() {
         this.app = express();
+        this.io = null;
     }
 
     setStatic() {
@@ -146,6 +149,7 @@ module.exports = class Application {
         for (let key in routes) {
             this.app.all(routes[key].url, (request, response) => {
                 try {
+                    response.socket = this.io;
                     var controller = new controllers[routes[key].controller](request, response);
                     controller[routes[key].action](request.data);
                 } catch (e) {
@@ -160,5 +164,17 @@ module.exports = class Application {
         });
         this.setErrorHander();
         this.app.listen(config.port);
+    }
+
+    socket() {
+        let server = http.createServer();
+        let io = socket(server);
+        io.on('connection', client => {
+            // console.log("connection");
+            // client.on('event', function(data){});
+            // client.on('disconnect', function(){});
+            this.io = client;
+        });
+        server.listen(3002);
     }
 }

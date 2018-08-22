@@ -1,3 +1,5 @@
 const application = require("./base/application");
 
-new application().start();
+let app = new application();
+app.socket();
+app.start();

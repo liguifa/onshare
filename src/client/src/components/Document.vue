@@ -1,13 +1,27 @@
 <template>
-	<div class="onshare-document">
+	<div class="onshare-document" @click="notepad">
 		<img src="../assets/doc-txt.png" />
-		<span>Chrome插件分享</span>
+		<span>{{title}}</span>
 	</div>
 </template>
 
 <script>
 export default {
-
+	props:{
+		id:{
+			type:Number,
+			require:true
+		},
+		title:{
+			type:String,
+			require:true
+		}
+	},
+	methods:{
+		notepad(){
+			this.$router.push(`/editer/${this.id}`)
+		}
+	}
 }
 </script>
 

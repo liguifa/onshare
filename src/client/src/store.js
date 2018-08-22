@@ -14,13 +14,18 @@ export default new Vuex.Store({
 		}
 	},
   mutations:{
-		login(state,username){
-			Cookie.set("username",username)
+		login(state,user){
+			if(user.remember)
+			{
+				Cookie.set("username",user.username,Infinity);
+			} else {
+				Cookie.set("username",user.username);
+			}
 		}
 	},
 	actions:{
-		login(context,username){
-			context.commit("login",username)
+		login(context,user){
+			context.commit("login",user);
 		}
 	}
 })

@@ -8,10 +8,12 @@ module.exports = class userController extends controller {
     }
 
     async login(user){
-        let isSuccess = await new userService().login(user.username,user.passeword);
-        this.setCookie("user",common.string.encrypt(JSON.stringify(user)));
+        let dbUser = await new userService().login(user.username,user.passeword);
+        if(dbUser){
+            this.setCookie("user",common.string.encrypt(JSON.stringify(dbUser)));
+        }
         this.json({
-            isSuccess:isSuccess
+            isSuccess:!!dbUser
         })
     }
 

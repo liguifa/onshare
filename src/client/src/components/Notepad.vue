@@ -1,15 +1,43 @@
 <template>
   <div class="onshare-notepad">
     <div class="onshare-notepad-title">
-      <h4>Chrome插件分享</h4>
+      <h4>{{title}}</h4>
     </div>
-    <div class="onshare-notepad-body" contenteditable></div>
+    <textarea class="onshare-notepad-body" v-model="text"></textarea>
   </div>
 </template>
 
 <script>
-export default {
+import Contentedit from "./Contentedit";
 
+export default {
+  props:{
+    document:{
+      type:Object,
+      require:true
+    }
+  },
+  data(){
+    return {
+      text:"",
+      title:""
+    }
+  },
+  watch:{
+    document(){
+      this.text = this.document.content;
+      this.title = this.document.title;
+    },
+    text(){
+      this.$emit("save",JSON.stringify({
+        title:this.title,
+        content:this.text
+      }));
+    }
+  },
+  components:{
+    Contentedit
+  }
 }
 </script>
 
@@ -34,7 +62,7 @@ export default {
 
   .onshare-notepad-body{
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - 30px);
     background-color: #fff;
     background-image: linear-gradient(rgba(53,85,131,0.1) 0%, rgba(255,255,255,0.2) 8%), url(http://memonotepad.com/img/paperfibers.png);
     background-position: 0 -3px, 0 0;
@@ -43,5 +71,6 @@ export default {
     line-height: 25px;
     outline: none;
     text-indent: 2em;
+    border:none;
   }
 </style>

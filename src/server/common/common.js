@@ -42,4 +42,26 @@ $.config = {
     }
 }
 
+$.guid = {
+    index:0,
+    _newId() {
+        return Math.floor((1 + Math.random() + this.index) * 0x10000)
+                 .toString(16)
+                 .substring(1);
+    },
+    new() {
+        let idNumber = 8;
+        let index = 0
+        this.index++;
+        let guidId = "";
+        for (var i = 0; i < idNumber; i++) {
+            guidId += this._newId();
+            if (i != idNumber - 1) {
+                guidId += "-";
+            }
+        }
+        return guidId;
+    }
+}
+
 module.exports = $;
