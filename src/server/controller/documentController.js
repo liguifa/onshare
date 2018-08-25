@@ -32,4 +32,8 @@ module.exports = class documentController extends controller {
             isSuccess:result
         });
     }
+
+    async share(share){
+        
+    }
 }

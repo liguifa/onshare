@@ -32,4 +32,8 @@ module.exports = class documentService{
 		fs.writeFileSync(path,JSON.stringify(props),"utf8");
 		return true;
 	}
+
+	async addShare(userId,model,number,password,documentId){
+		
+	}
 }

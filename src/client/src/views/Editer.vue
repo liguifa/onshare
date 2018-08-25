@@ -2,12 +2,14 @@
   <div class="onshare-editer">
     <Button class="onshare-editer-back" shape="circle" icon="md-arrow-round-back" @click="back" />
     <Notepad :document="document" @save="save" />
+    <Toolbar />
   </div>
 </template>
 
 <script>
 import Notepad from "../components/Notepad.vue";
 import Socket from 'socket.io-client'
+import Toolbar from "../components/Toolbar";
 
 export default {
   data(){
@@ -17,7 +19,8 @@ export default {
     }
   },
   components: {
-    Notepad
+    Notepad,
+    Toolbar
   },
   asyncComputed:{
     async document(){
