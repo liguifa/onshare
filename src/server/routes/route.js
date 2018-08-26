@@ -5,5 +5,6 @@ module.exports = [
     { url: /^\/document\/?$/, controller:"documentController",action: "document"},
     { url: /^\/types\/?$/, controller:"documentController",action: "types"},
     { url: /^\/addDocument\/?$/, controller:"documentController",action: "addDocument"},
-    { url: /^\/share\/?$/, controller:"documentController",action: "share"}
+    { url: /^\/share\/?$/, controller:"documentController",action: "share"},
+    { url: /^\/share\/watch\/?$/, controller:"documentController",action: "watch"}
 ]

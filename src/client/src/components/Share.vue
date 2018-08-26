@@ -34,7 +34,8 @@
 export default {
 	data(){
 		return {
-			model:0,
+			model:'只读',
+			modelValue:0,
 			number:"",
 			password:"",
 			isShare:false
@@ -44,15 +45,24 @@ export default {
 		shareDocument(){
 			this.isShare = true;
 		},
-		save(){
-			this.http.post("/share",{
-				model:this.model,
+		async save(){
+			let result = this.http.post("/share",{
+				model:this.modelValue,
 				number:this.number,
-				password:this.password
+				password:this.password,
+				documentId:this.$route.params.id
 			});
+			if(result.isSuccess){
+				this.$Modal.success("共享成功!");
+			}
 		},
 		cancel(){
 			this.isShare = false;
+		}
+	},
+	watch:{
+		model(){
+			this.modelValue = this.model == '只读' ? 0:1;
 		}
 	},
 	mounted() {

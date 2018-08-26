@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from "./store"
-import Home from "./views/Home.vue"
-import Editer from './views/Editer.vue'
-import Login from './views/Login.vue'
-import Register from './views/Register.vue'
+const Home = resolve => require(['./views/Home.vue'], resolve);
+const Editer = resolve => require(['./views/Editer.vue'], resolve);
+const Login = resolve => require(['./views/Login.vue'], resolve);
+const Register = resolve => require(['./views/Register.vue'], resolve);
+const Share = resolve => require(['./views/Share.vue'], resolve);
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ const router = new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/share/:id',
+      name: 'share',
+      component: Share
     }
   ]
 })
