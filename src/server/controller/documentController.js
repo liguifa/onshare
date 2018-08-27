@@ -39,6 +39,9 @@ module.exports = class documentController extends controller {
     }
 
     async watch(share){
-        
+        let user = JSON.parse(common.string.decrypt(this.getCookie("user")));
+        this.json({
+            isSuccess:await new documentService().watch(user.id,share.number,share.password)
+        });
     }
 }

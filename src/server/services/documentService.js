@@ -8,7 +8,9 @@ module.exports = class documentService{
 	}
 
 	getDocumentsByUserId(userId){
-		return sqlHelper.query(`select * from onshare_documents where createBy = ${userId}`);
+		return sqlHelper.query(`select * from onshare_documents as doc 
+								join onshare_acl as acl on doc.id = acl.resourceId
+								where acl.userId = ${userId}`);
 	}
 
 	async getDocumentById(id){
@@ -25,6 +27,8 @@ module.exports = class documentService{
 	async addDocument(title,type,userId){
 		let path = `./doc/${common.guid.new()}.json`
 		let document = await sqlHelper.query(`insert into onshare_documents values('null','${title}','${path}','${userId}','${userId}',0)`)
+		console.log(document);
+		await sqlHelper.query(`insert into onshare_acl values('null',${document.insertId},${userId})`);
 		let props = {
 			title:title,
 			content:""
@@ -39,10 +43,13 @@ module.exports = class documentService{
 	}
 
 	async watch(userId,number,password) {
-		let share = await sqlHelper.query(`select * from onshare_share where id = ${number}`);
+		console.log(`select * from onshare_share where id = ${number}`);
+		let share = (await sqlHelper.query(`select * from onshare_share where id = ${number}`))[0];
 		if(share.password == password){
-			let document = await sqlHelper.query(`select * from onshare_documnets where id = ${share.documentId}`);
-			
+			console.log(`insert into onshare_acl values('null',${share.documentId},${userId})`)
+			let result = await sqlHelper.query(`insert into onshare_acl values('null',${share.documentId},${userId})`);
+			return result != null;
 		}
+		return false;
 	}
 }

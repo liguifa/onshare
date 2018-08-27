@@ -1,7 +1,7 @@
 import Axios from "axios"
 
 export default {
-	base:"http://127.0.0.1:3001",
+	base:"http://127.0.0.1:3001/api",
 
 	async get(url,data){
 		let link = `${this.base}${url}`;

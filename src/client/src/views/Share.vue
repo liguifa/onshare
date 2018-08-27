@@ -4,7 +4,7 @@
       <h1>分享</h1>
       <Input class="onshare-share-form-item" v-model="number" placeholder="编号" />
       <Input class="onshare-share-form-item" type="password" v-model="password" placeholder="密码" />
-      <Button class="onshare-share-form-item onshare-share-form-item-btn" type="primary">查看</Button>
+      <Button class="onshare-share-form-item onshare-share-form-item-btn" type="primary" @click="save">查看</Button>
     </div>
   </div>
 </template>
@@ -25,7 +25,9 @@ export default {
 			});
 			if(result.isSuccess){
 				this.$router.push("/editer/1");
-			}
+			} else {
+        this.$Modal.error("查看失败，密码错误!");
+      }
 		}
 	}
 }

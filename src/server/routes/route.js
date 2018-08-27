@@ -1,10 +1,10 @@
 module.exports = [
-    { url: /^\/documents\/?$/, controller: "documentController", action: "documents" },
-    { url: /^\/login\/?$/, controller:"userController",action: "login" },
-    { url: /^\/register\/?$/, controller:"userController",action: "register"},
-    { url: /^\/document\/?$/, controller:"documentController",action: "document"},
-    { url: /^\/types\/?$/, controller:"documentController",action: "types"},
-    { url: /^\/addDocument\/?$/, controller:"documentController",action: "addDocument"},
-    { url: /^\/share\/?$/, controller:"documentController",action: "share"},
-    { url: /^\/share\/watch\/?$/, controller:"documentController",action: "watch"}
+    { url: /^\/api\/documents\/?$/, controller: "documentController", action: "documents" },
+    { url: /^\/api\/login\/?$/, controller:"userController",action: "login" },
+    { url: /^\/api\/register\/?$/, controller:"userController",action: "register"},
+    { url: /^\/api\/document\/?$/, controller:"documentController",action: "document"},
+    { url: /^\/api\/types\/?$/, controller:"documentController",action: "types"},
+    { url: /^\/api\/addDocument\/?$/, controller:"documentController",action: "addDocument"},
+    { url: /^\/api\/share\/?$/, controller:"documentController",action: "share"},
+    { url: /^\/api\/share\/watch\/?$/, controller:"documentController",action: "watch"}
 ]
