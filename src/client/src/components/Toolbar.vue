@@ -1,16 +1,20 @@
 <template>
 	<div class="onshare-toolbar">
 		<ul class="onshare-toolbar-ul">
-			<Share />
+			<li class="onshare-toolbar-ul-item"><Share /></li>
+			<li class="onshare-toolbar-ul-item"><Export /></li>
 		</ul>
 	</div>
 </template>
 
 <script>
 import Share from "../components/Share";
+import Export from "../components/Export";
+
 export default {
 	components:{
-		Share
+		Share,
+		Export
 	}
 }
 </script>
@@ -34,7 +38,7 @@ export default {
 		padding: 0px;
 		list-style: none;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 	}
 
 	.onshare-toolbar-ul-item{

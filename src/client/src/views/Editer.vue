@@ -1,7 +1,7 @@
 <template>
   <div class="onshare-editer">
     <Button class="onshare-editer-back" shape="circle" icon="md-arrow-round-back" @click="back" />
-    <Notepad :document="document" @save="save" />
+      <Notepad :document="document" @save="save" />
     <Toolbar />
   </div>
 </template>

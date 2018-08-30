@@ -44,4 +44,9 @@ module.exports = class documentController extends controller {
             isSuccess:await new documentService().watch(user.id,share.number,share.password)
         });
     }
+
+    async export(doc){
+        let result = await new documentService().export(doc.id);
+        this.stream(result.stream,"application/octet-stream",result.filename);
+    }
 }

@@ -52,4 +52,18 @@ module.exports = class documentService{
 		}
 		return false;
 	}
+
+	async export(id) {
+		let document = (await sqlHelper.query(`select * from onshare_documents where id = ${id}`))[0]
+		let writer = fs.createWriteStream(`./tmp/temp-${document.id}.temp`);
+		let file = fs.readFileSync(document.path,"utf-8");
+        writer.write(JSON.parse(file).content);
+		writer.end();
+		return new Promise((resolve,reject) => { 
+			writer.on('finish', () => {
+				console.log(1234567788889);
+				resolve({stream:fs.createReadStream(`./tmp/temp-${document.id}.temp`),filename:`${document.title}.txt`});
+			});
+		});
+	}
 }

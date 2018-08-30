@@ -54,7 +54,7 @@ html,body{
 
 .onshare-register-form{
   width: 400px;
-  height: 275px;
+  height: 285px;
   display: flex;
   flex-direction: column;
   align-self: center;

@@ -1,0 +1,11 @@
+[Util]
+Description=onShare
+
+[Service]
+Type=simple
+PIDFile=/var/run/onshare/onshare.PIDFile
+WorkingDirectory=/onshare/src/server
+ExecStart=/usr/local/bin/npm start
+
+[Install]
+WantedBy=multi-user.target

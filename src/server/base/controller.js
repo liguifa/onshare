@@ -11,7 +11,7 @@ module.exports = class controller {
     }
 
     json(data) {
-        this.response.setHeader("Access-Control-Allow-Origin","http://localhost:8080");
+        this.response.setHeader("Access-Control-Allow-Origin","http://localhost:8082");
         this.response.setHeader("Access-Control-Allow-Credentials", "true");
         this.response.send(JSON.stringify(data));
         this.response.end();
@@ -71,13 +71,16 @@ module.exports = class controller {
         this.response.end();
     }
 
-    stream(stream, contentType) {
+    stream(stream, contentType, filename) {
         contentType = contentType || "application/octet-stream";
+        console.log(stream);
         streamLength(stream).then(size => {
+            console.log(size);
             this.response.set("Content-Type", contentType);
             this.response.set("Content-Length", size);
             this.response.set("Accept-Ranges", "bytes");
             this.response.set("Content-Range", `byte 0-${size}/${size}`);
+            this.response.set("Content-disposition",`attachment;filename=${encodeURIComponent(filename)}`);
             stream.on("data", data => {
                 this.response.write(data);
             });
