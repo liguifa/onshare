@@ -5,15 +5,14 @@
 			<li class="onshare-toolbar-ul-item"><Share /></li>
 			<li class="onshare-toolbar-ul-item"><Export /></li>
 		</ul>
-		<!-- <div v-if="isIcon" class="onshare-toolbar-icon" @click="openTools">
-			<img src="../assets/logo.png" />
-		</div> -->
+		<IM />
 	</div>
 </template>
 
 <script>
 import Share from "../components/Share";
 import Export from "../components/Export";
+import IM from "../components/IM";
 
 export default {
 	data(){
@@ -30,7 +29,8 @@ export default {
 	},
 	components:{
 		Share,
-		Export
+		Export,
+		IM
 	}
 }
 </script>
