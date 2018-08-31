@@ -2,7 +2,6 @@
 	<div class="onshare-add">
 		<Button class="onshare-add-add" shape="circle" icon="md-add" @click="addDocument" />
 		<Modal
-			v-if="isAdd"
 			v-model="isAdd"
 			title="新建文档"
 			ok-text="确定"

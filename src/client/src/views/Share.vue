@@ -2,7 +2,7 @@
   <div class="onshare-share">
     <div class="onshare-share-form">
       <h1>分享</h1>
-      <Input class="onshare-share-form-item" v-model="number" placeholder="编号" />
+      <!-- <Input class="onshare-share-form-item" v-model="number" placeholder="编号" /> -->
       <Input class="onshare-share-form-item" type="password" v-model="password" placeholder="密码" />
       <Button class="onshare-share-form-item onshare-share-form-item-btn" type="primary" @click="save">查看</Button>
     </div>
@@ -29,7 +29,13 @@ export default {
         this.$Modal.error("查看失败，密码错误!");
       }
 		}
-	}
+  },
+  async mounted(){
+    let share = await this.http.get("/share/get",{id:this.$route.params.id});
+    if(share.type == 1){
+      this.save();
+    }
+  }
 }
 </script>
 
@@ -51,7 +57,7 @@ html,body{
 
 .onshare-share-form{
   width: 400px;
-  height: 275px;
+  height: 215px;
   display: flex;
   flex-direction: column;
   align-self: center;

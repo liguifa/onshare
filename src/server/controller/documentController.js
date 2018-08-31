@@ -35,7 +35,7 @@ module.exports = class documentController extends controller {
 
     async share(share){
         let user = JSON.parse(common.string.decrypt(this.getCookie("user")));
-        this.json(await new documentService().addShare(user.id,share.model,share.number,share.password,share.documentId));
+        this.json(await new documentService().addShare(user.id,share.model,share.number,share.password,share.documentId,share.type));
     }
 
     async watch(share){
@@ -48,5 +48,9 @@ module.exports = class documentController extends controller {
     async export(doc){
         let result = await new documentService().export(doc.id);
         this.stream(result.stream,"application/octet-stream",result.filename);
+    }
+
+    async getShare(share){
+        
     }
 }

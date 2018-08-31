@@ -37,9 +37,9 @@ module.exports = class documentService{
 		return true;
 	}
 
-	async addShare(userId,model,number,password,documentId){
-		let result = await sqlHelper.query(`insert into onshare_share values('null',${model},'${number}','${password}',${new Date().getTime()}, ${documentId})`);
-		return {isSuccess:result != null};
+	async addShare(userId,model,number,password,documentId,type){
+		let result = await sqlHelper.query(`insert into onshare_share values('null',${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
+		return {isSuccess:result != null,id:result.insertId};
 	}
 
 	async watch(userId,number,password) {

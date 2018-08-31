@@ -7,5 +7,6 @@ module.exports = [
     { url: /^\/api\/addDocument\/?$/, controller:"documentController",action: "addDocument"},
     { url: /^\/api\/share\/?$/, controller:"documentController",action: "share"},
     { url: /^\/api\/share\/watch\/?$/, controller:"documentController",action: "watch"},
-    { url: /^\/export\/?$/, controller:"documentController",action: "export"}
+    { url: /^\/api\/export\/?$/, controller:"documentController",action: "export"},
+    { url: /^\/api\/share\/get\/?$/, controller:"documentController",action: "getShare"}
 ]
