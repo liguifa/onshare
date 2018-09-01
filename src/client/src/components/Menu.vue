@@ -8,6 +8,7 @@
 			<Back v-if="model == 2" />
 			<Toolbar v-if="model == 2" />
 			<Add v-if="model == 1" />
+			<Android />
 			<User />
 		</div>
 	</div>
@@ -17,6 +18,7 @@
 import Add from "../components/Add";
 import Back from "../components/Back";
 import User from "../components/User";
+import Android from "../components/Android";
 import Toolbar from "../components/Toolbar";
 
 export default {
@@ -29,7 +31,8 @@ export default {
 		Add,
 		Back,
 		User,
-		Toolbar
+		Toolbar,
+		Android
 	}
 }
 </script>
