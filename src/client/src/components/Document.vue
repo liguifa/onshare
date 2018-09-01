@@ -1,11 +1,14 @@
 <template>
 	<div class="onshare-document" @click="notepad">
-		<img src="../assets/doc-txt.png" />
+		<img v-if="type==1" src="../assets/doc-txt.png" />
+		<img v-if="type==2" src="../assets/doc-csv.png" />
 		<span>{{title}}</span>
 	</div>
 </template>
 
 <script>
+const docs =　["doc-txt.png","doc-csv.png"];
+
 export default {
 	props:{
 		id:{
@@ -14,6 +17,10 @@ export default {
 		},
 		title:{
 			type:String,
+			require:true
+		},
+		type:{
+			type:Number,
 			require:true
 		}
 	},

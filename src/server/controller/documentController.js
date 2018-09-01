@@ -18,7 +18,7 @@ module.exports = class documentController extends controller {
         this.response.socket.on("update",content => {
             fs.writeFileSync(currentDocument.props.path,content,"utf8");
         });
-        this.json(currentDocument.file);
+        this.json(Object.assign(currentDocument.file,currentDocument.props));
     }
 
     async types(){

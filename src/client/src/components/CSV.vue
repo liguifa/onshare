@@ -1,9 +1,9 @@
 <template>
-  <div class="onshare-notepad">
-    <div class="onshare-notepad-title">
+  <div class="onshare-csv">
+    <div class="onshare-csv-title">
       <h2>{{title}}</h2>
     </div>
-    <textarea class="onshare-notepad-body" v-model="text"></textarea>
+   <Table border ref="selection" :columns="columns" :data="data"></Table>
   </div>
 </template>
 
@@ -11,43 +11,53 @@
 import Contentedit from "./Contentedit";
 
 export default {
-  props:{
-    document:{
-      type:Object,
-      require:true
-    }
-  },
-  data(){
-    return {
-      text:"",
-      title:""
-    }
-  },
-  watch:{
-    document(){
-      this.text = this.document.content;
-      this.title = this.document.title;
-    },
-    text(){
-      this.$emit("save",JSON.stringify({
-        title:this.title,
-        content:this.text
-      }));
-    }
-  },
-  components:{
-    Contentedit
-  }
+	props:{
+		document:{
+			type:Object,
+			require:true
+		}
+	},
+	data() {
+		return {
+			title:this.document.title,
+			columns: [
+				{
+					type: 'selection',
+					width: 45,
+					align: 'center'
+				},{
+					title: 'Name',
+					key: '1'
+				}
+			],
+			data: [
+				{
+					1: 'John Brown'
+				}
+			]
+		}
+	},
+	methods: {
+		save(){
+			this.$emit("save",JSON.stringify({
+				title:this.title,
+				content:this.text
+			}));	
+		}
+	},
+	components:{
+		Contentedit
+  	}
 }
 </script>
 
 <style>
-  .onshare-notepad{
+  .onshare-csv{
     width: 100%;
     height: 100%;
   }
 
-  .onshare-notepad-title{
+  .onshare-csv-title{
     width: 100%;
     height: 40px;
     text-align: center;
@@ -56,11 +66,11 @@ export default {
     padding: 14px;
   }
 
-  .onshare-notepad-title h4{
+  .onshare-csv-title h4{
     margin: 0px;
   }
 
-  .onshare-notepad-body{
+  .onshare-csv-body{
     width: 100%;
     height: calc(100% - 30px);
     background: #F7F7F7;
@@ -73,6 +83,5 @@ export default {
     outline: none;
     text-indent: 2em;
     border:none;
-    resize: none;
   }
 </style>

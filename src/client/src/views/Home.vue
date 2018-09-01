@@ -2,7 +2,7 @@
 	<div class="onshare-home">
 		<ul>
 			<li v-for="document in documents" :key="document.id">
-				<Document :id="document.id" :title="document.title" />
+				<Document :id="document.id" :title="document.title" :type="document.typeId" />
 			</li>
 		</ul>
 	</div>
@@ -18,7 +18,7 @@ export default {
 	},
 	asyncComputed:{
 		async documents(){
-			return await this.http.post("/documents");
+			return this.$store.state.documents;
 		}
 	},
 	components:{
@@ -26,6 +26,7 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("changeModel",1);
+		this.$store.dispatch("getDocuments");
 	},
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" ref="app">
     <Menu />
     <div class="onshare-body">
       <router-view />
@@ -45,7 +45,14 @@ export default {
   },
   created(){
     this.http.interceptors(this);
-  }
+  },
+  mounted() {
+    console.log(this.$refs)
+    this.$refs.app.oncontextmenu = ()=>{
+      window.event.returnValue=false;
+      return false;
+    }
+  },
 }
 </script>
 

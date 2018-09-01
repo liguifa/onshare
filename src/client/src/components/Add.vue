@@ -36,6 +36,7 @@
 			},
             async save () {
 				await this.http.post("/addDocument",{title:this.title,type:this.type});
+				this.$store.dispatch("getDocuments");
 				this.$Modal.success("添加成功");
 				this.isAdd = false;
             },

@@ -1,11 +1,13 @@
 <template>
   <div class="onshare-editer">
-      <Notepad :document="document" @save="save" />
+      <Notepad v-if="document.typeId == 1" :document="document" @save="save" />
+      <CSV v-if="document.typeId == 2" :document="document" @save="save" />
   </div>
 </template>
 
 <script>
 import Notepad from "../components/Notepad.vue";
+import CSV from "../components/CSV";
 import Socket from 'socket.io-client'
 
 export default {
@@ -17,7 +19,8 @@ export default {
     }
   },
   components: {
-    Notepad
+    Notepad,
+    CSV
   },
   asyncComputed:{
     async document(){

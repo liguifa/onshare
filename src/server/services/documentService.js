@@ -26,7 +26,7 @@ module.exports = class documentService{
 
 	async addDocument(title,type,userId){
 		let path = `./doc/${common.guid.new()}.json`
-		let document = await sqlHelper.query(`insert into onshare_documents values('null','${title}','${path}','${userId}','${userId}',0)`)
+		let document = await sqlHelper.query(`insert into onshare_documents values('null','${title}','${path}','${userId}','${userId}',0,${type})`)
 		console.log(document);
 		await sqlHelper.query(`insert into onshare_acl values('null',${document.insertId},${userId})`);
 		let props = {

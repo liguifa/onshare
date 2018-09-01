@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Cookie from "cookie-browser"
+import http from "./api/http";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-	model:1
+	model:1,
+	documents:[]
   },
   getters:{
 		username(){
@@ -24,6 +26,9 @@ export default new Vuex.Store({
 		},
 		changeModel(state,model){
 			state.model = model;
+		},
+		async getDocuments(state,model){
+			state.documents = await http.post("/documents");
 		}
 	},
 	actions:{
@@ -32,6 +37,9 @@ export default new Vuex.Store({
 		},
 		changeModel(context,model){
 			context.commit("changeModel",model);
-		}		
+		},
+		getDocuments(context){
+			context.commit("getDocuments");
+		}	
 	}
 })

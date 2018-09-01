@@ -2,12 +2,12 @@
 	<div class="onshare-menu">
 		<div>
 			<img src="../assets/logo.png" />
-			<h1>OnShare便签</h1>	
+			<h1>墨子便签</h1>	
 		</div>
 		<div>
 			<Back v-if="model == 2" />
 			<Toolbar v-if="model == 2" />
-			<Add v-if="model == 1"  />
+			<Add v-if="model == 1" />
 			<User />
 		</div>
 	</div>
@@ -61,6 +61,7 @@ export default {
 	.onshare-menu > div > h1{
 		color: #41464b;
 		font-size: 22px;
+		margin-top: 4px;
 	}
 
 	.onshare-menu > div:last-child{
