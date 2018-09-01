@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view />
+    <Menu />
+    <div class="onshare-body">
+      <router-view />
+    </div>
     <Spin fix v-if="isLoading">
 			<div class="loading">
 				<svg width="135" height="135" viewBox="0 0 135 135" xmlns="http://www.w3.org/2000/svg" fill="#fff">
@@ -29,11 +32,16 @@
 </template>
 
 <script>
+import Menu from "./components/Menu";
+
 export default {
   data(){
     return {
       isLoading:false
     }
+  },
+  components:{
+    Menu
   },
   created(){
     this.http.interceptors(this);
@@ -49,9 +57,32 @@ html,body,#app {
   padding: 0px;
   margin: 0px;
   overflow: hidden;
-  background: url('http://area.sinaapp.com/bingImg');
+  background: #F7F7F7;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.onshare-body{
+  height: calc(100% - 50px);
+  width: 100%;
+  position: absolute;
+  top:50px;
+}
+
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track {
+    border: 5px solid transparent;
+    box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.2) inset;
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.2) inset;
+    border: 5px solid transparent;
+    border-radius: 20px;
 }
 
 .loading{

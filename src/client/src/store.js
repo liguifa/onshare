@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+	model:1
   },
   getters:{
 		username(){
@@ -21,11 +21,17 @@ export default new Vuex.Store({
 			} else {
 				Cookie.set("username",user.username);
 			}
+		},
+		changeModel(state,model){
+			state.model = model;
 		}
 	},
 	actions:{
 		login(context,user){
 			context.commit("login",user);
-		}
+		},
+		changeModel(context,model){
+			context.commit("changeModel",model);
+		}		
 	}
 })

@@ -1,9 +1,5 @@
 <template>
 	<div class="onshare-home">
-		<div class="onshare-home-name">
-			<h2>{{username}}</h2>
-			<Add />
-		</div>
 		<ul>
 			<li v-for="document in documents" :key="document.id">
 				<Document :id="document.id" :title="document.title" />
@@ -14,7 +10,6 @@
 
 <script>
 import Document from "../components/Document";
-import Add from "../components/Add";
 
 export default {
 	data(){
@@ -24,20 +19,14 @@ export default {
 	asyncComputed:{
 		async documents(){
 			return await this.http.post("/documents");
-		},
-		username(){
-			return this.$store.getters.username;
-		}
-	},
-	methods:{
-		add(){
-			
 		}
 	},
 	components:{
-		Document,
-		Add
-	}
+		Document
+	},
+	mounted() {
+		this.$store.dispatch("changeModel",1);
+	},
 }
 </script>
 

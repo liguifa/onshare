@@ -1,6 +1,6 @@
 <template>
 	<div class="onshare-share">
-		<Button class="onshare-toolbar-ul-item" shape="circle" icon="md-share-alt" @click="shareDocument" />
+		<i class="ivu-icon ivu-icon-md-share-alt onshare-share-icon" @click="shareDocument"></i>
 		<Modal
 			v-model="isShare"
 			title="分享文档"
@@ -102,3 +102,11 @@ export default {
 	},
 }
 </script>
+
+<style>
+	.onshare-share-icon{
+		font-size: 20px;
+		cursor: pointer;
+		margin-left: 10px;
+	}
+</style>

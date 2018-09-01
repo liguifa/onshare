@@ -1,6 +1,6 @@
 <template>
 	<div class="onshare-export">
-		<Button class="onshare-toolbar-ul-item" shape="circle" icon="md-download" @click="exportFile" />
+		<i class="ivu-icon ivu-icon-md-arrow-down onshare-export-icon" @click="exportFile"></i>
 	</div>
 </template>
 
@@ -16,5 +16,9 @@ export default {
 </script>
 
 <style>
-
+	.onshare-export-icon{
+		font-size: 20px;
+		cursor: pointer;
+		margin-left: 10px;
+	}
 </style>

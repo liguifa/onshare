@@ -30,7 +30,8 @@ export default {
 		width: 100px;
 		height:120px;
 		border-radius: 5px;
-		background: url('http://memonotepad.com/img/paperfibers.png');
+		/* background: url('http://memonotepad.com/img/paperfibers.png'); */
+		/* background: #ffffff; */
     	background-size: auto;
 		display: flex;
 		justify-content: center;
@@ -42,11 +43,20 @@ export default {
 		user-select: none;
 	}
 
+	.onshare-document:hover{
+		background-color: #bbbbbb;
+	}
+
+	.onshare-document:hover span{
+		color: #ffffff;
+	}
+
 	.onshare-document span{
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		margin-top: 10px;
 		width: 90%;
+		text-align: center;
 	}
 </style>

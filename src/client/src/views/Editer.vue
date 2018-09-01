@@ -1,26 +1,23 @@
 <template>
   <div class="onshare-editer">
-    <Button class="onshare-editer-back" shape="circle" icon="md-arrow-round-back" @click="back" />
       <Notepad :document="document" @save="save" />
-    <Toolbar />
   </div>
 </template>
 
 <script>
 import Notepad from "../components/Notepad.vue";
 import Socket from 'socket.io-client'
-import Toolbar from "../components/Toolbar";
 
 export default {
   data(){
     return {
       title:"",
-      content:""
+      content:"",
+      model:2
     }
   },
   components: {
-    Notepad,
-    Toolbar
+    Notepad
   },
   asyncComputed:{
     async document(){
@@ -30,13 +27,11 @@ export default {
   methods:{
     save(content){
       this.io.emit("update",content);
-    },
-    back(){
-      this.$router.push("/");
     }
   },
   mounted() {
     this.io = Socket("ws://localhost:3002");
+    this.$store.dispatch("changeModel",2);
   },
 }
 </script>

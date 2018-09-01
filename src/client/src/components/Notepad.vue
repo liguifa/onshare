@@ -1,7 +1,7 @@
 <template>
   <div class="onshare-notepad">
     <div class="onshare-notepad-title">
-      <h4>{{title}}</h4>
+      <h2>{{title}}</h2>
     </div>
     <textarea class="onshare-notepad-body" v-model="text"></textarea>
   </div>
@@ -49,9 +49,9 @@ export default {
 
   .onshare-notepad-title{
     width: 100%;
-    height: 30px;
+    height: 40px;
     text-align: center;
-    background: url('http://memonotepad.com/img/paperfibers.png');
+    /* background: url('http://memonotepad.com/img/paperfibers.png'); */
     background-size: auto;
     padding: 14px;
   }
@@ -63,8 +63,9 @@ export default {
   .onshare-notepad-body{
     width: 100%;
     height: calc(100% - 30px);
-    background-color: #fff;
-    background-image: linear-gradient(rgba(53,85,131,0.1) 0%, rgba(255,255,255,0.2) 8%), url(http://memonotepad.com/img/paperfibers.png);
+    background: #F7F7F7;
+    /* background-color: #fff; */
+    /* background-image: linear-gradient(rgba(53,85,131,0.1) 0%, rgba(255,255,255,0.2) 8%), url(http://memonotepad.com/img/paperfibers.png); */
     background-position: 0 -3px, 0 0;
     background-size: 100% 25px, 10% 10%;  
     font: 24px;

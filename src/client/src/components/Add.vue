@@ -1,6 +1,6 @@
 <template>
 	<div class="onshare-add">
-		<Button class="onshare-add-add" shape="circle" icon="md-add" @click="addDocument" />
+		<i class="ivu-icon ivu-icon-md-add onshare-add-icon" @click="addDocument"></i>
 		<Modal
 			v-model="isAdd"
 			title="新建文档"
@@ -56,5 +56,12 @@
 		position: absolute;
 		right:15px;
 		top:15px;
+		line-height: 50px;
+	}
+
+	.onshare-add-icon{
+		font-size: 20px;
+		cursor: pointer;
+		margin-left: 10px;
 	}
 </style>

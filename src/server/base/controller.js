@@ -11,7 +11,7 @@ module.exports = class controller {
     }
 
     json(data) {
-        this.response.setHeader("Access-Control-Allow-Origin","http://localhost:8082");
+        this.response.setHeader("Access-Control-Allow-Origin","http://localhost:8081");
         this.response.setHeader("Access-Control-Allow-Credentials", "true");
         this.response.send(JSON.stringify(data));
         this.response.end();
