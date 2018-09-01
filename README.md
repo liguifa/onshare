@@ -1,4 +1,4 @@
-# OnShare  --在线协同编辑文档
+# 墨子便签  --一个可以在线协同修改的便签
 
 ## 启动客户端
 
@@ -16,4 +16,4 @@ npm run start
 
 ## 在线地址
 
-[http://www.onnotepad.cn/](http://www.onnotepad.cn)
+[https://www.onnotepad.cn/](https://www.onnotepad.cn)
