@@ -8,9 +8,9 @@ module.exports = class documentController extends controller {
         super(request, response);
     }
 
-    async documents(){
+    async documents(args){
         let user = JSON.parse(common.string.decrypt(this.getCookie("user")));
-        this.json(await new documentService().getDocumentsByUserId(user.id));
+        this.json(await new documentService().getDocumentsByUserId(user.id,args.searchKey));
     }
 
     async document(doc){
@@ -57,6 +57,12 @@ module.exports = class documentController extends controller {
     async deleteDocument(document){
         this.json({
             isSuccess:await new documentService().deleteDocument(document.id)
+        })
+    }
+
+    async renameDocument(document){
+        this.json({
+            isSuccess:await new documentService().renameDocument(document.id,document.name)
         })
     }
 }

@@ -27,8 +27,8 @@ export default new Vuex.Store({
 		changeModel(state,model){
 			state.model = model;
 		},
-		async getDocuments(state,model){
-			state.documents = await http.post("/documents");
+		async getDocuments(state,args){
+			state.documents = await http.post("/documents", args);
 		}
 	},
 	actions:{
@@ -38,8 +38,8 @@ export default new Vuex.Store({
 		changeModel(context,model){
 			context.commit("changeModel",model);
 		},
-		getDocuments(context){
-			context.commit("getDocuments");
+		getDocuments(context, args){
+			context.commit("getDocuments", args);
 		}	
 	}
 })

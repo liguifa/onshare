@@ -7,10 +7,12 @@ module.exports = class documentService{
 
 	}
 
-	getDocumentsByUserId(userId){
-		return sqlHelper.query(`select * from onshare_documents as doc 
+	getDocumentsByUserId(userId, searchKey){
+		searchKey = searchKey || "";
+		return sqlHelper.query(`select doc.* from onshare_documents as doc 
 								join onshare_acl as acl on doc.id = acl.resourceId
-								where acl.userId = ${userId}`);
+								where acl.userId = ${userId}
+								and ('${searchKey}' = '' or doc.title like '%${searchKey}%')`);
 	}
 
 	async getDocumentById(id){
@@ -73,7 +75,13 @@ module.exports = class documentService{
 	}
 
 	async deleteDocument(id) {
+		console.log(`delete from onshare_documents where id=${id}`);
 		let result = await sqlHelper.query(`delete from onshare_documents where id=${id}`);
+		return result != null;
+	}
+
+	async renameDocument(id,name){
+		let result = await sqlHelper.query(`update onshare_documents set title='${name}' where id=${id}`);
 		return result != null;
 	}
 }

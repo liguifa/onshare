@@ -5,6 +5,7 @@
 			<h1>墨子便签</h1>	
 		</div>
 		<div>
+			<Search v-if="model == 1" />
 			<Back v-if="model == 2" />
 			<Toolbar v-if="model == 2" />
 			<Add v-if="model == 1" />
@@ -20,6 +21,7 @@ import Back from "../components/Back";
 import User from "../components/User";
 import Android from "../components/Android";
 import Toolbar from "../components/Toolbar";
+import Search from "../components/Search";
 
 export default {
 	computed:{
@@ -32,7 +34,8 @@ export default {
 		Back,
 		User,
 		Toolbar,
-		Android
+		Android,
+		Search
 	}
 }
 </script>

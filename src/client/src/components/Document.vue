@@ -5,7 +5,7 @@
 		<span>{{title}}</span>
 		<Contextmenu>
 			<MenuItem title="下载" @menu="download" />
-			<MenuItem title="重命名" />
+			<MenuItem title="重命名" @menu="rename" />
 		　　<MenuItem title="删除" @menu="removeDoc" />
 		</Contextmenu>
 	</div>
@@ -31,6 +31,11 @@ export default {
 			require:true
 		}
 	},
+	data(){
+		return {
+			newname:""
+		}
+	},
 	methods:{
 		notepad(){
 			this.$router.push(`/editer/${this.id}`)
@@ -49,7 +54,30 @@ export default {
 					}
 				}
 			});
-			
+		},
+		rename(){
+			let self = this;
+			this.$Modal.info({
+				title:"重命名",
+				render(h){
+					return	h('Input', {
+                                props: {
+									placeholder: '请输入新名称',
+								},
+								on:{
+									"on-change":(event)=>{
+										self.newname = event.target.value;
+									}
+								}
+                            });
+				},
+				async onOk(){
+					let result = await this.http.post("/document/rename",{id:self.id,name:self.newname});
+					if(result.isSuccess){
+						self.$store.dispatch("getDocuments");
+					}
+				}
+			})
 		}
 	},
 	components:{

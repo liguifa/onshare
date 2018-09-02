@@ -1,7 +1,7 @@
 <template>
 	<div class="onshare-toolbar">
 		<ul v-if="isTool" class="onshare-toolbar-ul">
-			<li class="onshare-toolbar-ul-item"><IM /></li>
+			<!-- <li class="onshare-toolbar-ul-item"><IM /></li> -->
 			<li class="onshare-toolbar-ul-item"><Share /></li>
 			<li class="onshare-toolbar-ul-item"><Export /></li>
 		</ul>
