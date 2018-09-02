@@ -59,3 +59,12 @@ typings/
 
 # next.js build output
 .next
+
+# .net build 
+bin
+*.exe
+*.dll
+*.zip
+.vs
+packages
+obj
