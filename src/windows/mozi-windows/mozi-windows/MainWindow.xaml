@@ -1,0 +1,13 @@
+﻿<metro:MetroWindow x:Class="mozi_windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mozi_windows"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="墨子便签" Height="650" Width="825">
+    <Grid>
+        <WebBrowser Name="browser" />
+    </Grid>
+</metro:MetroWindow>
