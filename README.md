@@ -1,19 +1,7 @@
-# 墨子便签  --一个可以在线协同修改的便签
+<p align="center"><a href="https://vuejs.org" target="_blank" rel="noopener noreferrer"><img width="100" src="https://www.onnotepad.cn//2035703b7d2d04972eaf1018fad26765.png" alt="Vue logo"></a></p>
 
-## 启动客户端
+<h2 align="center">墨子便签</h2>
 
-```html
-cd ./src/client
-npm run serve
-```
+<p align="center">简单、实用、可依赖</p>
 
-## 启动服务器端
-
-```html
-cd ./src/server
-npm run start
-```
-
-## 在线地址
-
-[https://www.onnotepad.cn/](https://www.onnotepad.cn)
+<p style="text-indent:2em">可能是史上最简单实用的便签应用，你或许会因为她重新喜欢上记录和表达，她不仅可以输入文字，还支持插入图片，进行图文混排。你可以随时将便签分享给朋友,与朋友一起分享精美的文字、生活。</p>
