@@ -42,15 +42,23 @@ export default {
 		color:#fff;
 	}
 
-	.onshare-home ul{
+	.onshare-home > ul{
 		margin: 0px;
 		padding: 0px;
 		list-style: none;
 	}
 
-	.onshare-home ul li{
+	.onshare-home > ul > li{
 		float: left;
-		margin-right: 15px;
+		margin-right: 0px;
+		margin-left: 7px;
 		margin-bottom: 15px;
+	}
+
+	@media screen and (max-width:992px) {
+		.onshare-home > ul > li{
+			width: 100%;
+			margin-left: 0px;
+		}
 	}
 </style>

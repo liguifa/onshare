@@ -38,6 +38,7 @@ module.exports = class documentService{
 	}
 
 	async addShare(userId,model,number,password,documentId,type){
+		console.log(`insert into onshare_share values('null',${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
 		let result = await sqlHelper.query(`insert into onshare_share values('null',${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
 		return {isSuccess:result != null,id:result.insertId};
 	}
@@ -45,7 +46,7 @@ module.exports = class documentService{
 	async watch(userId,number,password) {
 		console.log(`select * from onshare_share where id = ${number}`);
 		let share = (await sqlHelper.query(`select * from onshare_share where id = ${number}`))[0];
-		if(share.password == password){
+		if(share.password == password || share.type == 1){
 			console.log(`insert into onshare_acl values('null',${share.documentId},${userId})`)
 			let result = await sqlHelper.query(`insert into onshare_acl values('null',${share.documentId},${userId})`);
 			return result != null;
@@ -65,5 +66,14 @@ module.exports = class documentService{
 				resolve({stream:fs.createReadStream(`./tmp/temp-${document.id}.temp`),filename:`${document.title}.txt`});
 			});
 		});
+	}
+
+	async getShare(id) {
+		return (await sqlHelper.query(`select * from onshare_share where id=${id}`))[0];
+	}
+
+	async deleteDocument(id) {
+		let result = await sqlHelper.query(`delete from onshare_documents where id=${id}`);
+		return result != null;
 	}
 }

@@ -51,6 +51,12 @@ module.exports = class documentController extends controller {
     }
 
     async getShare(share){
-        
+        this.json(await new documentService().getShare(share.id));
+    }
+
+    async deleteDocument(document){
+        this.json({
+            isSuccess:await new documentService().deleteDocument(document.id)
+        })
     }
 }

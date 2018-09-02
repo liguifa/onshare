@@ -14,7 +14,7 @@
 				</FormItem>
 				<FormItem label="类型" prop="type">
 					<Select v-model="type" placeholder="文档类型">
-						<Option value="type.id" v-for="type in types" :key="type.id">{{type.name}}</Option>
+						<Option :value="type.id" v-for="type in types" :key="type.id">{{type.name}}</Option>
 					</Select>
 				</FormItem>
 			</Form>
