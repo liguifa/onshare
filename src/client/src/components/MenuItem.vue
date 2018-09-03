@@ -1,5 +1,5 @@
 <template>
-	<li @click.stop="menu" class="onshare-menuitem">
+	<li @click.stop="menu" :class="{'onshare-menuitem onshare-menuitem-disabled':disabled,'onshare-menuitem':!disabled,}">
 		<Icon :type="icon" />
 		<span>{{title}}</span>
 	</li>
@@ -9,7 +9,8 @@
 export default {
 	props:{
 		icon:String,
-		title:String
+		title:String,
+		disabled:Boolean
 	},
 	methods:{
 		menu(e){
@@ -25,5 +26,17 @@ export default {
 		color: #444;
 		line-height: 1.7;
 		font-size: 14px;
+	}
+
+	.onshare-menuitem-disabled > span{
+		color: #868695;
+	}
+
+	.onshare-menuitem-disabled:hover > span{
+		color: #868695 !important;
+	}
+
+	.onshare-menuitem-disabled:hover{
+		background: #ffffff !important;
 	}
 </style>

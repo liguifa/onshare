@@ -1,6 +1,7 @@
 const controller = require("../base/controller");
 const userService = require("../services/userService");
 const common = require("../common/common");
+const captcha = require("trek-captcha");
 
 module.exports = class userController extends controller {
     constructor(request, response) {
@@ -19,5 +20,13 @@ module.exports = class userController extends controller {
 
     async register(user){
         this.json(await new userService().register(user.username,user.password,user.rePassword));
+    }
+
+    async getVerificationCode(user) {
+        let code = await captcha();
+        this.buffer(code.buffer);
+        var time = this.getSession(`${user.username}_time`);
+        time.token = code.token;
+        this.setSession(time);
     }
 }

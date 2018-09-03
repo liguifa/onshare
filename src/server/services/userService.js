@@ -36,7 +36,7 @@ module.exports = class userService {
                 message:"两次输入的密码不一致"
             }
         }
-        let user = await sqlHelper.query(`insert into onshare_users values('null','${username}','${$.string.encrypt(password)}')`);
+        let user = await sqlHelper.query(`insert into onshare_users(id,username,password) values(null,'${username}','${$.string.encrypt(password)}')`);
         return {
             isSuccess:true,
             message:"注册成功"

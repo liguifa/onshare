@@ -8,11 +8,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
 	model:1,
-	documents:[]
+	documents:[],
+	username:null
   },
   getters:{
-		username(){
-			return Cookie.get("username")
+		username(state){
+			let username = state.username || Cookie.get("username");
+			return username != "undefined" ? username : null; 
 		}
 	},
   mutations:{
@@ -20,8 +22,10 @@ export default new Vuex.Store({
 			if(user.remember)
 			{
 				Cookie.set("username",user.username,Infinity);
+				state.username = user.username;
 			} else {
 				Cookie.set("username",user.username);
+				state.username = user.username;
 			}
 		},
 		changeModel(state,model){

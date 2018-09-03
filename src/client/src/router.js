@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from "./store"
+import iView from "iview"
 const Home = resolve => require(['./views/Home.vue'], resolve);
 const Editer = resolve => require(['./views/Editer.vue'], resolve);
 const Login = resolve => require(['./views/Login.vue'], resolve);
@@ -40,6 +41,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  iView.LoadingBar.start();
 	if(to.name != "login" && to.name != "register"){
 		if(!store.getters.username){
 			next("/login")
@@ -50,5 +52,9 @@ router.beforeEach((to, from, next) => {
 		next()
 	}
 })
+
+router.afterEach(route => {
+  iView.LoadingBar.finish();
+});
 
 export default router;

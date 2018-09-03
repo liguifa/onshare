@@ -4,6 +4,10 @@
       <h1>登录</h1>
       <Input class="onshare-login-form-item" v-model="username" placeholder="帐号" />
       <Input class="onshare-login-form-item" type="password" v-model="password" placeholder="密码" />
+      <div class="onshare-login-form-code">
+        <Input class="onshare-login-form-item onshare-login-form-item-code" type="text" v-model="code" placeholder="验证码" />
+        <img class="onshare-login-form-item-img" src="http://localhost:3001/getVerificationCode" />
+      </div>
       <div class="onshare-login-form-item">
         <Checkbox v-model="remember">记住我</Checkbox>
         <router-link class="onshare-login-form-item-register" :to="'/register'" replace>没有帐号？</router-link>
@@ -60,7 +64,7 @@ html,body{
 
 .onshare-login-form{
   width: 400px;
-  height: 275px;
+  height: 325px;
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -91,5 +95,22 @@ html,body{
 
 .onshare-login-form-item-register{
   float:right;
+}
+
+.onshare-login-form-code{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  padding-bottom: 10px;
+}
+
+.onshare-login-form-item-code{
+  width: 58%;
+}
+
+.onshare-login-form-item-img{
+  height: 32px;
+  width: 38%;
+  margin-top: 5px;
 }
 </style>

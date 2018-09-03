@@ -1,7 +1,7 @@
 <template>
   <div class="onshare-editer">
-      <Notepad v-if="type == 1" :document="document" @save="save" />
-      <CSV v-if="type == 2" :document="document" @save="save" />
+      <Notepad v-if="type == 1" :document="document" @save="save" :model="model" />
+      <CSV v-if="type == 2" :document="document" @save="save" :model="model" />
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
     return {
       title:"",
       content:"",
-      model:2,
+      model:0,
       type:1,
     }
   },
@@ -26,6 +26,7 @@ export default {
   asyncComputed:{
     async document(){
       let doc = await this.http.get(`/document`,{id:this.$route.params.id});
+      this.model = doc.permissions == 2 ? 1 : 0;
       this.typeId = doc.typeId;
       return doc;
     }
