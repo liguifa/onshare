@@ -24,7 +24,7 @@ export default {
     async register(){
       let result = await this.http.post("/register/",{username:this.username,password:this.password,rePassword: this.rePassword});
       if(result.isSuccess){
-        this.$store.dispatch("login",this.username)
+        //this.$store.dispatch("login",this.username)
         this.$router.push("/")
       } else {
         this.$Message.error({

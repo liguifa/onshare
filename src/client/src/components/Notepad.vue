@@ -3,7 +3,8 @@
     <div class="onshare-notepad-title">
       <h2>{{title}}</h2>
     </div>
-    <textarea class="onshare-notepad-body" v-model="text"></textarea>
+    <textarea v-if="model == 1" readonly class="onshare-notepad-body" v-model="text"></textarea>
+    <textarea v-if="model == 0" class="onshare-notepad-body" v-model="text"></textarea>
   </div>
 </template>
 
@@ -15,6 +16,9 @@ export default {
     document:{
       type:Object,
       require:true
+    },
+    model:{
+      type:Number
     }
   },
   data(){

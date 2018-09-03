@@ -2,7 +2,7 @@
 	<div class="onshare-home">
 		<ul>
 			<li v-for="document in documents" :key="document.id">
-				<Document :id="document.id" :title="document.title" :type="document.typeId" />
+				<Document :permission="document.permissions" :id="document.id" :title="document.title" :type="document.typeId" />
 			</li>
 		</ul>
 	</div>

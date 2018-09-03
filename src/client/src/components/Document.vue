@@ -6,7 +6,7 @@
 		<Contextmenu>
 			<MenuItem title="下载" @menu="download" />
 			<MenuItem title="重命名" @menu="rename" />
-		　　<MenuItem title="删除" @menu="removeDoc" />
+		　　<MenuItem title="删除" @menu="removeDoc" :disabled="permission != 0" />
 		</Contextmenu>
 	</div>
 </template>
@@ -27,6 +27,10 @@ export default {
 			require:true
 		},
 		type:{
+			type:Number,
+			require:true
+		},
+		permission:{
 			type:Number,
 			require:true
 		}

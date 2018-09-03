@@ -7,16 +7,18 @@ module.exports = class documentService{
 
 	}
 
-	getDocumentsByUserId(userId, searchKey){
+	async getDocumentsByUserId(userId, searchKey){
 		searchKey = searchKey || "";
-		return sqlHelper.query(`select doc.* from onshare_documents as doc 
+		let documents = sqlHelper.query(`select doc.*,acl.permissions from onshare_documents as doc 
 								join onshare_acl as acl on doc.id = acl.resourceId
 								where acl.userId = ${userId}
 								and ('${searchKey}' = '' or doc.title like '%${searchKey}%')`);
+		return documents || [];
 	}
 
 	async getDocumentById(id){
-		let documents = await sqlHelper.query(`select * from onshare_documents where id = ${id}`);
+		let documents = await sqlHelper.query(`select doc.*,acl.permissions from onshare_documents as doc
+						join onshare_acl as acl on acl.resourceId = doc.id where doc.id = ${id}`);
 		let current = documents[0];
 		let file = fs.readFileSync(current.path,"utf-8");
 		return {props:current,file:JSON.parse(file)};
@@ -28,9 +30,9 @@ module.exports = class documentService{
 
 	async addDocument(title,type,userId){
 		let path = `./doc/${common.guid.new()}.json`
-		let document = await sqlHelper.query(`insert into onshare_documents values('null','${title}','${path}','${userId}','${userId}',0,${type})`)
+		let document = await sqlHelper.query(`insert into onshare_documents values(null,'${title}','${path}','${userId}','${userId}',0,${type})`)
 		console.log(document);
-		await sqlHelper.query(`insert into onshare_acl values('null',${document.insertId},${userId})`);
+		await sqlHelper.query(`insert into onshare_acl values(null,${document.insertId},${userId},0)`);
 		let props = {
 			title:title,
 			content:""
@@ -40,8 +42,8 @@ module.exports = class documentService{
 	}
 
 	async addShare(userId,model,number,password,documentId,type){
-		console.log(`insert into onshare_share values('null',${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
-		let result = await sqlHelper.query(`insert into onshare_share values('null',${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
+		console.log(`insert into onshare_share values(null,${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
+		let result = await sqlHelper.query(`insert into onshare_share values(null,${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
 		return {isSuccess:result != null,id:result.insertId};
 	}
 
@@ -49,8 +51,9 @@ module.exports = class documentService{
 		console.log(`select * from onshare_share where id = ${number}`);
 		let share = (await sqlHelper.query(`select * from onshare_share where id = ${number}`))[0];
 		if(share.password == password || share.type == 1){
-			console.log(`insert into onshare_acl values('null',${share.documentId},${userId})`)
-			let result = await sqlHelper.query(`insert into onshare_acl values('null',${share.documentId},${userId})`);
+			console.log(`insert into onshare_acl values(null,${share.documentId},${userId})`);
+			let permission = share.type == 1 ? 2 : 1;
+			let result = await sqlHelper.query(`insert into onshare_acl values(null,${share.documentId},${userId},${permission})`);
 			return result != null;
 		}
 		return false;
