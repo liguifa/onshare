@@ -1,8 +1,21 @@
 module.exports = {
     port: 3001,
     static: {
-        extensions: ['html', "js", "css", "png", "ico", "gif", "jpg", "bmp", "jpeg"],
-        maxAge: '0d'
+        path:`${__dirname}/../view`,
+        args: {
+            dotfiles: "ignore",
+            etag: false,
+            extensions: ['html', "js", "css", "png", "ico", "gif", "jpg", "bmp", "jpeg"],
+            index: false,
+            maxAge: '0d',
+            redirect: true,
+            setHeaders: (res, path, stat) => {
+                res.set("x-timestamp", Date.now());
+            }
+        }
+    },
+    socket:{
+        port:3002
     },
     db: {
         host: "47.100.13.189",
@@ -11,6 +24,24 @@ module.exports = {
         database: "onshare",
         connectTimeout: 1000000
     },
+    middlewares:[
+        "express-cookie",
+        "express-session",
+    ],
+    plugins:[
+        "express-static",
+        "express-http",
+        "express-socket",
+        "express-router",
+        "express-error",
+        "express-folder"
+    ],
+    cors:"http://localhost:8081",
+    folders:[
+        "./doc",
+        "./tmp"
+    ],
+    routes:require("../routes/route"),
     uploadDir: "./src/view/upload",
     anonymous: [
         /\.js/,

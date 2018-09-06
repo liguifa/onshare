@@ -9,7 +9,7 @@ module.exports = class documentController extends controller {
     }
 
     async documents(args){
-        let user = JSON.parse(common.string.decrypt(this.getCookie("user")));
+        let user = JSON.parse(common.string.decrypt(this.request.cookies["user"]));
         this.json(await new documentService().getDocumentsByUserId(user.id,args.searchKey));
     }
 
@@ -26,7 +26,7 @@ module.exports = class documentController extends controller {
     }
 
     async addDocument(document){
-        let user = JSON.parse(common.string.decrypt(this.getCookie("user")));
+        let user = JSON.parse(common.string.decrypt(this.request.cookies["user"]));
         let result = await new documentService().addDocument(document.title,document.type,user.id);
         this.json({
             isSuccess:result
@@ -34,12 +34,12 @@ module.exports = class documentController extends controller {
     }
 
     async share(share){
-        let user = JSON.parse(common.string.decrypt(this.getCookie("user")));
+        let user = JSON.parse(common.string.decrypt(this.request.cookies["user"]));
         this.json(await new documentService().addShare(user.id,share.model,share.number,share.password,share.documentId,share.type));
     }
 
     async watch(share){
-        let user = JSON.parse(common.string.decrypt(this.getCookie("user")));
+        let user = JSON.parse(common.string.decrypt(this.request.cookies["user"]));
         this.json({
             isSuccess:await new documentService().watch(user.id,share.number,share.password)
         });

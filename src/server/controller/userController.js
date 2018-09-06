@@ -9,9 +9,16 @@ module.exports = class userController extends controller {
     }
 
     async login(user){
-        let dbUser = await new userService().login(user.username,user.passeword);
+        if(user.code !== this.request.sessions["captcha"]){
+            this.json({
+                isSuccess:false,
+                message:"验证码错误"
+            });
+            return;
+        }
+        let dbUser = await new userService().login(user.username,user.password);
         if(dbUser){
-            this.setCookie("user",common.string.encrypt(JSON.stringify(dbUser)));
+            this.response.cookies["user"] = common.string.encrypt(JSON.stringify(dbUser));
         }
         this.json({
             isSuccess:!!dbUser
@@ -24,9 +31,7 @@ module.exports = class userController extends controller {
 
     async getVerificationCode(user) {
         let code = await captcha();
+        this.response.sessions[`captcha`] = code.token;
         this.buffer(code.buffer);
-        var time = this.getSession(`${user.username}_time`);
-        time.token = code.token;
-        this.setSession(time);
     }
 }

@@ -6,7 +6,7 @@
       <Input class="onshare-login-form-item" type="password" v-model="password" placeholder="密码" />
       <div class="onshare-login-form-code">
         <Input class="onshare-login-form-item onshare-login-form-item-code" type="text" v-model="code" placeholder="验证码" />
-        <img class="onshare-login-form-item-img" src="http://localhost:3001/getVerificationCode" />
+        <img class="onshare-login-form-item-img" :src="'http://localhost:3001/getVerificationCode?number'+this.number" @click="changeCode" />
       </div>
       <div class="onshare-login-form-item">
         <Checkbox v-model="remember">记住我</Checkbox>
@@ -26,21 +26,26 @@ export default {
     return {
       username:"",
       password:"",
+      code:"",
       remember:false,
-      isLoading:false
+      isLoading:false,
+      number:0
     }
   },
   methods:{
     async login(){
-      let result = await this.http.post("/login/",{username:this.username,password:this.password});
+      let result = await this.http.post("/login/",{username:this.username,password:this.password,code:this.code});
       if(result.isSuccess){
         this.$store.dispatch("login",{username:this.username, remember:this.remember})
         this.$router.push("/")
       } else {
         this.$Message.error({
-          content:"登录失败，用户名或密码错误."
+          content:result.message || "登录失败，用户名或密码错误."
         })
       }
+    },
+    changeCode(){
+      this.number = Math.random();
     }
   }
 }
@@ -112,5 +117,6 @@ html,body{
   height: 32px;
   width: 38%;
   margin-top: 5px;
+  cursor: pointer;
 }
 </style>
