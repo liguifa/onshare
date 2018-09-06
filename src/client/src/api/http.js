@@ -26,11 +26,9 @@ export default {
 	},
 
 	interceptors(view){
-		console.log("1234567");
 		Axios.interceptors.request.use( config => {
 			view.isLoading = true;
 			config.withCredentials = true;
-			console.log(config);
 			return config;
 		}, error => {
 			view.$Message.error({

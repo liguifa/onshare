@@ -1,5 +1,4 @@
 const Base64 = require('js-base64').Base64;
-const oprnTypeConfig = require("../config/opentypeconfig");
 
 var $ = {};
 

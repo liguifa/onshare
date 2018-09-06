@@ -31,7 +31,6 @@ module.exports = class documentService{
 	async addDocument(title,type,userId){
 		let path = `./doc/${common.guid.new()}.json`
 		let document = await sqlHelper.query(`insert into onshare_documents values(null,'${title}','${path}','${userId}','${userId}',0,${type})`)
-		console.log(document);
 		await sqlHelper.query(`insert into onshare_acl values(null,${document.insertId},${userId},0)`);
 		let props = {
 			title:title,
@@ -42,16 +41,13 @@ module.exports = class documentService{
 	}
 
 	async addShare(userId,model,number,password,documentId,type){
-		console.log(`insert into onshare_share values(null,${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
 		let result = await sqlHelper.query(`insert into onshare_share values(null,${model},'${number}','${password}',${new Date().getTime()}, ${documentId}, ${type})`);
 		return {isSuccess:result != null,id:result.insertId};
 	}
 
 	async watch(userId,number,password) {
-		console.log(`select * from onshare_share where id = ${number}`);
 		let share = (await sqlHelper.query(`select * from onshare_share where id = ${number}`))[0];
 		if(share.password == password || share.type == 1){
-			console.log(`insert into onshare_acl values(null,${share.documentId},${userId})`);
 			let permission = share.type == 1 ? 2 : 1;
 			let result = await sqlHelper.query(`insert into onshare_acl values(null,${share.documentId},${userId},${permission})`);
 			return result != null;
@@ -67,7 +63,6 @@ module.exports = class documentService{
 		writer.end();
 		return new Promise((resolve,reject) => { 
 			writer.on('finish', () => {
-				console.log(1234567788889);
 				resolve({stream:fs.createReadStream(`./tmp/temp-${document.id}.temp`),filename:`${document.title}.txt`});
 			});
 		});
@@ -78,7 +73,6 @@ module.exports = class documentService{
 	}
 
 	async deleteDocument(id) {
-		console.log(`delete from onshare_documents where id=${id}`);
 		let result = await sqlHelper.query(`delete from onshare_documents where id=${id}`);
 		return result != null;
 	}

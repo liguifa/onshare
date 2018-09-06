@@ -47,7 +47,6 @@ export default {
     this.http.interceptors(this);
   },
   mounted() {
-    console.log(this.$refs)
     this.$refs.app.oncontextmenu = ()=>{
       window.event.returnValue=false;
       return false;

@@ -175,7 +175,6 @@ export default {
 			this.isStart = false;
 		},
 		send(){
-			console.log(this)
 			if(this.current != ""){
 				this.messages.push({
 					content:this.current,
