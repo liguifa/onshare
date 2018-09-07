@@ -2,6 +2,7 @@
 	<li @click.stop="menu" :class="{'onshare-menuitem onshare-menuitem-disabled':disabled,'onshare-menuitem':!disabled,}">
 		<Icon :type="icon" />
 		<span>{{title}}</span>
+		<slot v-if="isShow"></slot>
 	</li>
 </template>
 
@@ -10,11 +11,19 @@ export default {
 	props:{
 		icon:String,
 		title:String,
-		disabled:Boolean
+		disabled:Boolean,
+		component:Object
+	},
+	data(){
+		return {
+			isShow:false,
+		}
 	},
 	methods:{
 		menu(e){
 			this.$emit("menu");
+			console.log("===================");
+			this.isShow = true;
 		}
 	}
 }

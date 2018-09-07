@@ -1,8 +1,7 @@
 <template>
 	<div class="onshare-add">
-		<i class="ivu-icon ivu-icon-md-add onshare-add-icon" @click="addDocument"></i>
 		<Modal
-			v-model="isAdd"
+			v-model="show"
 			title="新建文档"
 			ok-text="确定"
 			cancel-text="取消"
@@ -22,34 +21,31 @@
 	</div>
 </template>
 <script>
-    export default {
-        data () {
-            return {
-				isAdd: false,
-				title:"",
-				type:""
-            }
+export default {
+    data () {
+        return {
+			title:"",
+			type:"",
+			show:true
+        }
+    },
+    methods: {
+        async save () {
+			await this.http.post("/addDocument",{title:this.title,type:this.type});
+			this.$store.dispatch("getDocuments");
+			this.$Modal.success("添加成功");
+			this.show = false;
         },
-        methods: {
-			addDocument() {
-				this.isAdd = true;
-			},
-            async save () {
-				await this.http.post("/addDocument",{title:this.title,type:this.type});
-				this.$store.dispatch("getDocuments");
-				this.$Modal.success("添加成功");
-				this.isAdd = false;
-            },
-            cancel () {
-                this.isAdd = false;
-            }
-		},
-		asyncComputed:{
-			async types(){
-				return await this.http.get("/types")
-			}
+        cancel () {
+            this.show = false;
+        }
+	},
+	asyncComputed:{
+		async types(){
+			return await this.http.get("/types")
 		}
-    }
+	}
+}
 </script>
 
 <style>
