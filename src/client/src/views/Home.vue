@@ -1,15 +1,22 @@
 <template>
 	<div class="onshare-home">
+		<Contextmenu>
+			<MenuItem title="新建便签"><Add /></MenuItem>
+		</Contextmenu>
 		<ul>
 			<li v-for="document in documents" :key="document.id">
 				<Document :permission="document.permissions" :id="document.id" :title="document.title" :type="document.typeId" />
 			</li>
 		</ul>
+		
 	</div>
 </template>
 
 <script>
 import Document from "../components/Document";
+import Add from "../components/Add";
+import Contextmenu from "../components/Contenxtmenu";
+import MenuItem from "../components/MenuItem";
 
 export default {
 	data(){
@@ -22,7 +29,10 @@ export default {
 		}
 	},
 	components:{
-		Document
+		Document,
+		Add,
+		Contextmenu,
+		MenuItem
 	},
 	mounted() {
 		this.$store.dispatch("changeModel",1);
@@ -35,6 +45,8 @@ export default {
 	.onshare-home{
 		padding-top: 15px;
 		padding-left: 15px;
+		width: 100%;
+		height: 100%;
 		position: relative;
 	}
 

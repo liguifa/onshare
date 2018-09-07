@@ -8,7 +8,6 @@
 			<Search v-if="model == 1" />
 			<Back v-if="model == 2" />
 			<Toolbar v-if="model == 2" />
-			<Add v-if="model == 1" />
 			<Android />
 			<User />
 		</div>
@@ -16,7 +15,6 @@
 </template>
 
 <script>
-import Add from "../components/Add";
 import Back from "../components/Back";
 import User from "../components/User";
 import Android from "../components/Android";
@@ -30,7 +28,6 @@ export default {
 		}
 	},
 	components:{
-		Add,
 		Back,
 		User,
 		Toolbar,

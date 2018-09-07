@@ -8,7 +8,7 @@
 <script>
 import Notepad from "../components/Notepad.vue";
 import CSV from "../components/CSV";
-import Socket from 'socket.io-client'
+import Socket from 'socket.io-client';
 
 export default {
   data(){
