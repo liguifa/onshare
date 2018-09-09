@@ -10,6 +10,7 @@
       </div>
       <div class="onshare-login-form-item">
         <Checkbox v-model="remember">记住我</Checkbox>
+        <a class="onshare-login-form-item-finger" href="#" @click="fingerprint_login">指纹登录</a>
         <router-link class="onshare-login-form-item-register" :to="'/register'" replace>没有帐号？</router-link>
       </div>
       <Button class="onshare-login-form-item onshare-login-form-item-btn" type="primary" @click="login">登录</Button>
@@ -18,7 +19,7 @@
 </template>
 
 <script>
-
+import Fingerprint2 from "fingerprintjs2"
 
 export default {
   name: 'app',
@@ -29,12 +30,13 @@ export default {
       code:"",
       remember:false,
       isLoading:false,
-      number:0
+      number:0,
+      type:0
     }
   },
   methods:{
     async login(){
-      let result = await this.http.post("/login/",{username:this.username,password:this.password,code:this.code});
+      let result = await this.http.post("/login/",{username:this.username,password:this.password,code:this.code,type:this.type});
       if(result.isSuccess){
         this.$store.dispatch("login",{username:this.username, remember:this.remember})
         this.$router.push("/")
@@ -44,10 +46,26 @@ export default {
         })
       }
     },
+    async fingerprint_login(){
+        new Fingerprint2().get(async (finger, components) => {
+            let result = await this.http.post("/login/",{username:finger,password:finger,code:"",type:1});
+            if(result.isSuccess){
+              this.$store.dispatch("login",{username:result, remember:true})
+              this.$router.push("/")
+            } else {
+            this.$Message.error({
+              content:result.message || "登录失败，用户名或密码错误."
+            })
+          }
+        });
+    },
     changeCode(){
       this.number = Math.random();
     }
-  }
+  },
+  mounted() {
+    this.fingerprint_login();
+  },
 }
 </script>
 
@@ -118,5 +136,9 @@ html,body{
   width: 38%;
   margin-top: 5px;
   cursor: pointer;
+}
+
+.onshare-login-form-item-finger{
+  float: right;
 }
 </style>

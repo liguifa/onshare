@@ -6,8 +6,12 @@ module.exports = class userService {
     constructor() {
     }
 
-    async login(username, password) {
+    async login(username, password, type) {
         let user = await sqlHelper.query(`select * from onshare_users where username='${username}'`);
+        if((!user || user.length == 0) && type == 1) {
+            await this.register(username, password, password);
+            return await this.login(username, password, type);
+        }
         if(user && user.length >= 1 && user[0].password == $.string.encrypt(password))
         {
             return user[0];
@@ -16,18 +20,18 @@ module.exports = class userService {
     }
 
     async register(username, password, rePassword) {
-        if(!(username && username.length > 0 && username.length < 10))
+        if(!(username && username.length > 0 && username.length < 100))
         {
             return {
                 isSuccess:false,
-                message:"用户名必须小于10个字符"
+                message:"用户名必须小于100个字符"
             }
         }
-        if(!(password && password.length > 5 && password.length < 17))
+        if(!(password && password.length > 5 && password.length < 100))
         {
             return {
                 isSuccess:false,
-                message:"密码必须在6到16个字符"
+                message:"密码必须在6到100个字符"
             }
         }
         if(password != rePassword) {

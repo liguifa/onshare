@@ -9,14 +9,14 @@ module.exports = class userController extends controller {
     }
 
     async login(user){
-        if(user.code !== this.request.sessions["captcha"]){
+        if(user.code !== this.request.sessions["captcha"] && user.type == 0){
             this.json({
                 isSuccess:false,
                 message:"验证码错误"
             });
             return;
         }
-        let dbUser = await new userService().login(user.username,user.password);
+        let dbUser = await new userService().login(user.username,user.password,user.type);
         if(dbUser){
             this.response.cookies["user"] = common.string.encrypt(JSON.stringify(dbUser));
         }
