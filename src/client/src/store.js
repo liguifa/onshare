@@ -28,6 +28,10 @@ export default new Vuex.Store({
 				state.username = user.username;
 			}
 		},
+		outlogin(state){
+			state.username = null;
+			Cookie.set("username",null, -1);
+		},
 		changeModel(state,model){
 			state.model = model;
 		},
@@ -38,6 +42,9 @@ export default new Vuex.Store({
 	actions:{
 		login(context,user){
 			context.commit("login",user);
+		},
+		outlogin(context){
+			context.commit("outlogin");
 		},
 		changeModel(context,model){
 			context.commit("changeModel",model);

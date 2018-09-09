@@ -18,7 +18,7 @@ const router = new Router({
       component: Home
     },
     {
-      path: '/login',
+      path: '/login/:auto',
       name: 'login',
       component: Login
     },
@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
 	if(to.name != "login" && to.name != "register"){
 		if(!store.getters.username){
-			next("/login")
+			next("/login/0")
 		} else {
 			next()
 		}
