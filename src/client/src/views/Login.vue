@@ -50,7 +50,7 @@ export default {
         new Fingerprint2().get(async (finger, components) => {
             let result = await this.http.post("/login/",{username:finger,password:finger,code:"",type:1});
             if(result.isSuccess){
-              this.$store.dispatch("login",{username:result, remember:true})
+              this.$store.dispatch("login",{username:finger, remember:true})
               this.$router.push("/")
             } else {
             this.$Message.error({
@@ -64,7 +64,9 @@ export default {
     }
   },
   mounted() {
-    this.fingerprint_login();
+    if(this.$route.params.auto != 1){
+      this.fingerprint_login();
+    }
   },
 }
 </script>
