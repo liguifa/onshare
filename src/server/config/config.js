@@ -34,13 +34,15 @@ module.exports = {
         "express-socket",
         "express-router",
         "express-error",
-        "express-folder"
+        "express-folder",
+        "express-initdb"
     ],
     cors:"http://localhost:8081",
     folders:[
         "./doc",
         "./tmp"
     ],
+    init:`${__dirname}/../init`,
     routes:require("../routes/route"),
     uploadDir: "./src/view/upload",
     anonymous: [
