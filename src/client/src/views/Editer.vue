@@ -1,12 +1,13 @@
 <template>
   <div class="onshare-editer">
       <Notepad v-if="type == 1" :document="document" @save="save" :model="model" />
-      <CSV v-if="type == 2" :document="document" @save="save" :model="model" />
+      <Richtext v-if="type == 2" :document="document" @save="save" :model="model" />
   </div>
 </template>
 
 <script>
-import Notepad from "../components/Notepad.vue";
+import Notepad from "../components/Notepad";
+import Richtext from "../components/Richtext";
 import CSV from "../components/CSV";
 import Socket from 'socket.io-client';
 
@@ -21,13 +22,14 @@ export default {
   },
   components: {
     Notepad,
-    CSV
+    CSV,
+    Richtext
   },
   asyncComputed:{
     async document(){
       let doc = await this.http.get(`/document`,{id:this.$route.params.id});
       this.model = doc.permissions == 2 ? 1 : 0;
-      this.typeId = doc.typeId;
+      this.type = doc.typeId;
       return doc;
     }
   },

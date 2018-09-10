@@ -22,7 +22,6 @@ export default {
 	methods:{
 		menu(e){
 			this.$emit("menu");
-			console.log("===================");
 			this.isShow = true;
 		}
 	}
