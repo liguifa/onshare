@@ -1,7 +1,7 @@
 <template>
 	<div class="onshare-document" @click="notepad">
 		<img v-if="type==1" src="../assets/doc-txt.png" />
-		<img v-if="type==2" src="../assets/doc-csv.png" />
+		<img v-if="type==2" src="../assets/doc-rich.png" />
 		<span>{{title}}</span>
 		<Contextmenu>
 			<MenuItem title="下载" @menu="download" />

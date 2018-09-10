@@ -25,7 +25,9 @@ export default {
 	},
 	mounted() {
 		document.addEventListener("click",()=>{
-			this.isShow = false;
+			if(!this.$store.state.isWindow){
+				this.isShow = false;
+			}
 		});
 	},
 }

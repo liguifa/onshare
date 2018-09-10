@@ -35,15 +35,20 @@ export default {
 			this.$store.dispatch("getDocuments");
 			this.$Modal.success("添加成功");
 			this.show = false;
+			this.$store.state.isWindow = false;
         },
         cancel () {
-            this.show = false;
-        }
+			this.show = false;
+			this.$store.state.isWindow = false;
+		}
 	},
 	asyncComputed:{
 		async types(){
 			return await this.http.get("/types")
 		}
+	},
+	mounted(){
+		this.$store.state.isWindow = true;
 	}
 }
 </script>

@@ -6,7 +6,8 @@ module.exports = (app) => {
 	let server = http.createServer()
 	app.socket = socket();
 	app.socket.on('connection', client => {
-		request.socket = client;
+		app.socket.client = client;
 	});
+	app.socket.listen(server);
 	server.listen(config.socket.port);
 }
