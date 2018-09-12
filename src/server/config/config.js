@@ -29,6 +29,7 @@ module.exports = {
         "express-session",
     ],
     plugins:[
+        "express-log",
         "express-static",
         "express-http",
         "express-socket",
@@ -42,6 +43,10 @@ module.exports = {
         "./doc",
         "./tmp"
     ],
+    log4js:{
+		appenders: { cheese: { type: 'file', filename: './logs/mozi.log' } },
+		categories: { default: { appenders: ['cheese'], level: 'debug' } }
+	},
     init:`${__dirname}/../init`,
     routes:require("../routes/route"),
     uploadDir: "./src/view/upload",

@@ -5,10 +5,11 @@ module.exports = (app) => {
 		app.all(config.routes[key].url, (request, response) => {
 			try {
 				response.socket = app.socket.client;
+				logger.info(request.url);
 				var controller = new (require(`../controller/${config.routes[key].controller}.js`))(request, response);
 				controller[config.routes[key].action](request.data);
 			} catch (e) {
-				console.log(e);
+				logger.error(e);
 				throw e;
 			}
 		});

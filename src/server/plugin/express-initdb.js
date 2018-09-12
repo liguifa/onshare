@@ -18,7 +18,7 @@ module.exports = async (app) => {
 						let result = await sqlHelper.query(`insert into ${tableName}(${Object.keys(value).join()}) values('${sql_values}')`);
 						status = result ? "success":"Fail";
 					}
-					console.log(`${tableName}  ${log_values}  ${status}`);
+					logger.info(`${tableName}  ${log_values}  ${status}`);
 				});
 			});
 		}
