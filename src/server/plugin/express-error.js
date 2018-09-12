@@ -6,6 +6,7 @@ module.exports = (app) => {
         response.statusCode = response.statusCode !== 401 && response.statusCode !== 404 ? 500 : response.statusCode;
         var errorPagePath = `${__dirname}/../view/error/${response.statusCode}.html`;
         fs.readFile(errorPagePath, { encoding: "utf8" }, (err, data) => {
+            logger.err(err);
             response.send(data);
             response.end();
         })

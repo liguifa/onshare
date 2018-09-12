@@ -11,6 +11,7 @@
     "cookie-browser": "^1.0.0",
     "fingerprintjs2": "^1.8.1",
     "iview": "^3.0.0",
+    "log4js": "^3.0.5",
     "socket.io-client": "^2.1.1",
     "vue": "^2.5.17",
     "vue-async-computed": "^3.4.1",

@@ -17,6 +17,7 @@
     "express-session": "^1.15.6",
     "formidable": "^1.1.1",
     "js-base64": "^2.4.3",
+    "log4js": "^3.0.5",
     "mysql": "^2.15.0",
     "smb2": "^0.2.7",
     "socket.io": "^2.1.1",

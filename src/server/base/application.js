@@ -14,5 +14,13 @@ module.exports = class Application {
             require(`../plugin/${plugin}.js`)(this.app)
         })
         this.app.listen(config.port);
+        logger.info("app start");
+        logger.info("--------------------------------------------------");
+        logger.info(` port       | ${config.port} `);
+        logger.info(` url        | http://localhost:${config.port} `);
+        logger.info(` path       | ${__dirname}`);
+        logger.info(` middleware | ${config.middlewares.join(',')} `)
+        logger.info(` plugin     | ${config.plugins.join(',')} `)
+        logger.info("--------------------------------------------------");
     }
 }
