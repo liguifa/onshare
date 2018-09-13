@@ -9,15 +9,17 @@ module.exports = class documentController extends controller {
     }
 
     async documents(args){
-        console.log(this.request.cookies)
         let user = JSON.parse(common.string.decrypt(this.request.cookies["user"]));
         this.json(await new documentService().getDocumentsByUserId(user.id,args.searchKey));
     }
 
     async document(doc){
-        let currentDocument = await new documentService().getDocumentById(doc.id)
-        this.response.socket.on("update",content => {
+        let currentDocument = await new documentService().getDocumentById(doc.id);
+        let socket = this.response.socket;
+        socket.on(doc.id,"update",content => {
+            console.log("=========================================")
             fs.writeFileSync(currentDocument.props.path,content,"utf8");
+            socket.push(doc.id, "update", JSON.parse(content).content);
         });
         this.json(Object.assign(currentDocument.file,currentDocument.props));
     }

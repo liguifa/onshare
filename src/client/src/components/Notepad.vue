@@ -19,11 +19,14 @@ export default {
     },
     model:{
       type:Number
+    },
+    content:{
+      type:String
     }
   },
   data(){
     return {
-      text:"",
+      text:this.content,
       title:""
     }
   },
@@ -33,10 +36,15 @@ export default {
       this.title = this.document.title;
     },
     text(){
-      this.$emit("save",JSON.stringify({
-        title:this.title,
-        content:this.text
-      }));
+      if(this.content != this.text) {
+        this.$emit("save",JSON.stringify({
+          title:this.title,
+          content:this.text
+        }));
+      }
+    },
+    content(){
+      this.text = this.content;
     }
   },
   components:{

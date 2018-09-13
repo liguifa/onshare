@@ -11,5 +11,5 @@ module.exports = [
     { url: /^\/api\/share\/get\/?$/, controller:"documentController",action: "getShare"},
     { url: /^\/api\/document\/delete\/?$/, controller:"documentController",action: "deleteDocument"},
     { url: /^\/api\/document\/rename\/?$/, controller:"documentController",action: "renameDocument"},
-    { url: /^\/getVerificationCode\/?$/, controller:"userController",action:"getVerificationCode"}
+    { url: /^\/api\/getVerificationCode\/?$/, controller:"userController",action:"getVerificationCode"}
 ]

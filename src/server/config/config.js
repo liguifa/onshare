@@ -30,15 +30,15 @@ module.exports = {
     ],
     plugins:[
         "express-log",
+        "express-socket",
         "express-static",
         "express-http",
-        "express-socket",
         "express-router",
         "express-error",
         "express-folder",
         "express-initdb"
     ],
-    cors:"http://localhost:8081",
+    cors:"http://192.168.1.5:8081",
     folders:[
         "./doc",
         "./tmp"
