@@ -3,19 +3,29 @@
     <div class="onshare-notepad-title">
       <h2>{{title}}</h2>
     </div>
-    <textarea v-if="model == 1" readonly class="onshare-notepad-body" v-model="text"></textarea>
-    <textarea v-if="model == 0" class="onshare-notepad-body" v-model="text"></textarea>
+    <textarea v-if="model == 1" readonly class="onshare-notepad-body" v-model="text" :style="{fontFamily:font}"></textarea>
+    <textarea v-if="model == 0" class="onshare-notepad-body" v-model="text" :style="{fontFamily:font}"></textarea>
+    <Contextmenu>
+        <MenuItem title="属性"><Property @save="updateProperty" :font="font" :title="title" /></MenuItem>
+    </Contextmenu>
   </div>
 </template>
 
 <script>
 import Contentedit from "./Contentedit";
+import Contextmenu from "../components/Contenxtmenu";
+import MenuItem from "../components/MenuItem";
+import Property from "../components/Property";
 
 export default {
-  props:{
-    document:{
-      type:Object,
-      require:true
+    props:{
+        document:{
+            type:Object,
+            require:true
+        },
+        model:{
+            type:Number
+        }
     },
     model:{
       type:Number
@@ -27,19 +37,22 @@ export default {
   data(){
     return {
       text:this.content,
-      title:""
+      title:"",
+      font:""
     }
   },
   watch:{
     document(){
       this.text = this.document.content;
       this.title = this.document.title;
+      this.font = this.document.font;
     },
     text(){
       if(this.content != this.text) {
         this.$emit("save",JSON.stringify({
           title:this.title,
           content:this.text
+          font:this.font
         }));
       }
     },
@@ -47,9 +60,25 @@ export default {
       this.text = this.content;
     }
   },
-  components:{
-    Contentedit
-  }
+  methods:{
+        updateProperty(properties){
+            this.font = properties.font;
+            this.title = properties.title;
+            this.$emit("save",JSON.stringify({
+                title:this.title,
+                content:this.text,
+                font:this.font
+            }));
+            this.$store.state.isNav = properties.isNav;
+            console.log(properties)
+        }
+    },
+    components:{
+        Contentedit,
+        Contextmenu,
+        MenuItem,
+        Property
+    }
 }
 </script>
 

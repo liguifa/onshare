@@ -51,15 +51,15 @@ export default {
 </script>
 
 <style>
-  .onshare-editer{
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
+    .onshare-editer{
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
 
-  .onshare-editer-back{
-    position: absolute;
-    top:2px;
-    left: 2px;
-  }
+    .onshare-editer-back{
+        position: absolute;
+        top:2px;
+        left: 2px;
+    }
 </style>

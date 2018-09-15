@@ -43,7 +43,7 @@ export default new Vuex.Store({
 		login(context,user){
 			context.commit("login",user);
 		},
-		outlogin(context){
+		outlogin(context){changeModel
 			context.commit("outlogin");
 		},
 		changeModel(context,model){
