@@ -51,6 +51,6 @@ export default new Vuex.Store({
 		},
 		getDocuments(context, args){
 			context.commit("getDocuments", args);
-		}	
+		}
 	}
 })

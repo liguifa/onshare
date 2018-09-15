@@ -4,6 +4,7 @@
 			<MenuItem title="新建便签"><Add /></MenuItem>
 		</Contextmenu>
 		<ul>
+			<!-- <li><Folder :id="1111111" :title="'document.title'" /></li> -->
 			<li v-for="document in documents" :key="document.id">
 				<Document :permission="document.permissions" :id="document.id" :title="document.title" :type="document.typeId" />
 			</li>
@@ -14,6 +15,7 @@
 
 <script>
 import Document from "../components/Document";
+import Folder from "../components/Folder";
 import Add from "../components/Add";
 import Contextmenu from "../components/Contenxtmenu";
 import MenuItem from "../components/MenuItem";
@@ -30,6 +32,7 @@ export default {
 	},
 	components:{
 		Document,
+		Folder,
 		Add,
 		Contextmenu,
 		MenuItem
@@ -37,6 +40,7 @@ export default {
 	mounted() {
 		this.$store.dispatch("changeModel",1);
 		this.$store.dispatch("getDocuments");
+		let folderId = this.$route.params.id;
 	},
 }
 </script>

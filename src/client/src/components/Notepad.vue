@@ -25,42 +25,52 @@ export default {
         },
         model:{
             type:Number
+        },
+        model:{
+            type:Number
+        },
+        content:{
+            type:String
         }
     },
-    model:{
-      type:Number
+    data(){
+        return {
+            text:this.content,
+            title:"",
+            font:""
+        }
     },
-    content:{
-      type:String
-    }
-  },
-  data(){
-    return {
-      text:this.content,
-      title:"",
-      font:""
-    }
-  },
-  watch:{
-    document(){
-      this.text = this.document.content;
-      this.title = this.document.title;
-      this.font = this.document.font;
+    watch:{
+        document(){
+            this.text = this.document.content;
+            this.title = this.document.title;
+            this.font = this.document.font;
+        },
+        text(){
+            if(this.content != this.text) {
+                this.$emit("save",JSON.stringify({
+                    title:this.title,
+                    content:this.text,
+                    font:this.font
+                }));
+            }
+        },
+        content(){
+            this.text = this.content;
+        }
     },
-    text(){
-      if(this.content != this.text) {
-        this.$emit("save",JSON.stringify({
-          title:this.title,
-          content:this.text
-          font:this.font
-        }));
-      }
-    },
-    content(){
-      this.text = this.content;
-    }
-  },
-  methods:{
+    methods:{
+        updateProperty(properties){
+            this.font = properties.font;
+            this.title = properties.title;
+            this.$emit("save",JSON.stringify({
+                title:this.title,
+                content:this.text,
+                font:this.font
+            }));
+            this.$store.state.isNav = properties.isNav;
+            console.log(properties)
+        },
         updateProperty(properties){
             this.font = properties.font;
             this.title = properties.title;
