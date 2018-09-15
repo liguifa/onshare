@@ -47,6 +47,33 @@ export default {
         });
         this.$store.dispatch("changeModel",2);
     }
+  },
+  components: {
+    Notepad,
+    CSV,
+    Richtext
+  },
+  asyncComputed:{
+    async document(){
+      let doc = await this.http.get(`/document`,{id:this.$route.params.id});
+      this.model = doc.permissions == 2 ? 1 : 0;
+      this.type = doc.typeId;
+      return doc;
+    }
+  },
+  methods:{
+    save(content){
+      this.io.emit("update",content);
+    }
+  },
+  mounted() {
+    this.io = Socket(config.socket.url);
+    this.io.emit("join", this.$route.params.id);
+    this.io.on("update", message => {
+      this.content = message;
+    });
+    this.$store.dispatch("changeModel",2);
+  },
 }
 </script>
 
