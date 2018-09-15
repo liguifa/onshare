@@ -4,7 +4,7 @@ module.exports = (app) => {
 	for (let key in config.routes) {
 		app.all(config.routes[key].url, (request, response) => {
 			try {
-				response.socket = app.socket.client;
+				response.socket = socket;
 				logger.info(request.url);
 				var controller = new (require(`../controller/${config.routes[key].controller}.js`))(request, response);
 				controller[config.routes[key].action](request.data);

@@ -1,7 +1,8 @@
-import Axios from "axios"
+import Axios from "axios";
+import config from "../config";
 
 export default {
-	base:"http://localhost:3001/api",
+	base:config.api.url,
 
 	async get(url,data){
 		let link = `${this.base}${url}`;

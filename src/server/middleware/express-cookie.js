@@ -9,6 +9,7 @@ module.exports = (app) => {
 				var cookieKeyValue = cookie.split("=");
 				request.cookies[cookieKeyValue[0]] = cookieKeyValue[1];
 			});
+			console.log(request.cookies)
 		}
 
 		response.cookies = new Proxy({},{

@@ -6,7 +6,7 @@
       <Input class="onshare-login-form-item" type="password" v-model="password" placeholder="密码" />
       <div class="onshare-login-form-code">
         <Input class="onshare-login-form-item onshare-login-form-item-code" type="text" v-model="code" placeholder="验证码" />
-        <img class="onshare-login-form-item-img" :src="'http://localhost:3001/getVerificationCode?number'+this.number" @click="changeCode" />
+        <img class="onshare-login-form-item-img" :src="url" @click="changeCode" />
       </div>
       <div class="onshare-login-form-item">
         <Checkbox v-model="remember">记住我</Checkbox>
@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import Fingerprint2 from "fingerprintjs2"
+import Fingerprint2 from "fingerprintjs2";
+import config from "../config";
 
 export default {
   name: 'app',
@@ -32,6 +33,11 @@ export default {
       isLoading:false,
       number:0,
       type:0
+    }
+  },
+  computed:{
+    url(){
+      return `${config.api.url}/getVerificationCode?number=${this.number}`;
     }
   },
   methods:{

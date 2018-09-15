@@ -27,28 +27,40 @@ export default {
             type:Number
         }
     },
-    data(){
-        return {
-            text:"",
-            title:"",
-            font:""
-        }
+    model:{
+      type:Number
     },
-    watch:{
-        document(){
-            this.text = this.document.content;
-            this.title = this.document.title;
-            this.font = this.document.font;
-        },
-        text(){
-            this.$emit("save",JSON.stringify({
-                title:this.title,
-                content:this.text,
-                font:this.font
-            }));
-        }
+    content:{
+      type:String
+    }
+  },
+  data(){
+    return {
+      text:this.content,
+      title:"",
+      font:""
+    }
+  },
+  watch:{
+    document(){
+      this.text = this.document.content;
+      this.title = this.document.title;
+      this.font = this.document.font;
     },
-    methods:{
+    text(){
+      if(this.content != this.text) {
+        this.$emit("save",JSON.stringify({
+          title:this.title,
+          content:this.text
+          font:this.font
+        }));
+      }
+    },
+    content(){
+      this.text = this.content;
+    }
+  },
+  methods:{
         updateProperty(properties){
             this.font = properties.font;
             this.title = properties.title;
