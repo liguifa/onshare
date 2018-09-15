@@ -1,7 +1,7 @@
 <template>
   <div id="app" ref="app">
-    <Menu />
-    <div class="onshare-body">
+    <Menu v-if="!isNav" />
+    <div class="onshare-body" :style="{top:top}">
       <router-view />
     </div>
     <Spin fix v-if="isLoading">
@@ -35,23 +35,31 @@
 import Menu from "./components/Menu";
 
 export default {
-  data(){
-    return {
-      isLoading:false
-    }
-  },
-  components:{
-    Menu
-  },
-  created(){
-    this.http.interceptors(this);
-  },
-  mounted() {
-    this.$refs.app.oncontextmenu = ()=>{
-      window.event.returnValue=false;
-      return false;
-    }
-  },
+    data(){
+        return {
+            isLoading:false
+        }
+    },
+    components:{
+        Menu
+    },
+    computed:{
+        isNav(){
+            return this.$store.state.isNav;
+        },
+        top(){
+            return this.isNav ? "0px" : "50px";
+        }
+    },
+    created(){
+        this.http.interceptors(this);
+    },
+    mounted() {
+        this.$refs.app.oncontextmenu = ()=>{
+            window.event.returnValue=false;
+            return false;
+        }
+    },
 }
 </script>
 

@@ -46,9 +46,6 @@ export default {
 		async types(){
 			return await this.http.get("/types")
 		}
-	},
-	mounted(){
-		this.$store.state.isWindow = true;
 	}
 }
 </script>
