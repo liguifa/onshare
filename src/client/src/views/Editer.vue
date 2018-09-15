@@ -1,8 +1,8 @@
 <template>
-    <div class="onshare-editer">
-        <Notepad v-if="type == 1" :document="document" @save="save" :model="model" />
-        <Richtext v-if="type == 2" :document="document" @save="save" :model="model" />
-    </div>
+  <div class="onshare-editer">
+      <Notepad v-if="type == 1" :document="document" @save="save" :model="model" :content="content" />
+      <Richtext v-if="type == 2" :document="document" @save="save" :model="model" :content="content" />
+  </div>
 </template>
 
 <script>
@@ -10,6 +10,7 @@ import Notepad from "../components/Notepad";
 import Richtext from "../components/Richtext";
 import CSV from "../components/CSV";
 import Socket from "socket.io-client";
+import config from "../config";
 
 export default {
     data(){
@@ -39,9 +40,13 @@ export default {
         }
     },
     mounted() {
-        this.io = Socket("ws://localhost:3002");
+        this.io = Socket(config.socket.url);
+        this.io.emit("join", this.$route.params.id);
+        this.io.on("update", message => {
+            this.content = message;
+        });
         this.$store.dispatch("changeModel",2);
-    },
+    }
 }
 </script>
 

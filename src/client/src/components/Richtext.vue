@@ -20,11 +20,14 @@ export default {
     	},
     	model:{
       		type:Number
-    	}
+		},
+		content:{
+			type:String
+		}
 	},
 	data(){
     	return {
-      		text:"",
+      		text:this.content,
       		title:""
     	}
   	},

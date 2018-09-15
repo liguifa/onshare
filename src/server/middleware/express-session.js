@@ -21,7 +21,7 @@ module.exports = (app) => {
 		}
 		response.sessions = new Proxy({},{
 			get(target, key){
-				return request.sessions[sessionId][key];
+				return request.sessions[key];
 			},
 			set(target, key, value){
 				request.sessions[key] = value;
