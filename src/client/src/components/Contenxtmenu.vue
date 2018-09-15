@@ -21,11 +21,20 @@ export default {
 			this.x = e.clientX;
 			this.y = e.clientY;
 			this.isShow = true;
+		},
+		findElement(cls, element){
+			while(element){
+				if(element.classList.contains(cls)){
+					return true;
+				}
+				element = element.parentElement;
+			}
+			return false;
 		}
 	},
 	mounted() {
-		document.addEventListener("click",()=>{
-			if(!this.$store.state.isWindow){
+		document.addEventListener("click",(e)=>{
+			if(!this.findElement("ivu-modal-content", e.target)){
 				this.isShow = false;
 			}
 		});
