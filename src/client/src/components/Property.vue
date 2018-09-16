@@ -15,6 +15,18 @@
                     <span slot="close">否</span>
                 </i-switch>
             </FormItem>
+            <FormItem label="签名">
+                <i-switch v-model="properies.autograph.isShow" size="large">
+                    <span slot="open">是</span>
+                    <span slot="close">否</span>
+                </i-switch>
+                <div class="onshare-property-autograph">
+                    <Input v-if="properies.autograph.isShow" v-model="properies.autograph.name" placeholder="签名名称" />
+                </div>
+                <div class="onshare-property-autograph">
+                    <DatePicker v-if="properies.autograph.isShow" v-model="properies.autograph.time" type="date" placeholder="签名日期"></DatePicker>
+                </div>
+            </FormItem>
         </Form>
     </Modal>
 </template>
@@ -32,7 +44,12 @@ export default {
             properies:{
                 title:this.title,
                 font:this.font,
-                isNav:!this.isNav
+                isNav:!this.isNav,
+                autograph:{
+                    isShow:false,
+                    name:this.$store.getters.username,
+                    time:Date()
+                }
             }
         }
     },
@@ -66,5 +83,7 @@ export default {
 </script>
 
 <style>
-
+    .onshare-property-autograph{
+        margin-top: 10px;
+    }
 </style>
