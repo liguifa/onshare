@@ -5,7 +5,7 @@
     </div>
     <textarea v-if="model == 1" readonly class="onshare-notepad-body" v-model="text" :style="{fontFamily:font,height:height}"></textarea>
     <textarea v-if="model == 0" class="onshare-notepad-body" v-model="text" :style="{fontFamily:font,height:height}"></textarea>
-    <div v-if="autograph" class="onshare-notepad-autograph">
+    <div v-if="autograph && autograph.isShow" class="onshare-notepad-autograph">
         <p>{{autograph.name}}</p>
         <strong>{{autograph.time}}</strong>
     </div>
@@ -75,18 +75,8 @@ export default {
         updateProperty(properties){
             this.font = properties.font;
             this.title = properties.title;
-            this.$emit("save",JSON.stringify({
-                title:this.title,
-                content:this.text,
-                font:this.font,
-                autograph:this.autograph
-            }));
-            this.$store.state.isNav = properties.isNav;
-            console.log(properties)
-        },
-        updateProperty(properties){
-            this.font = properties.font;
-            this.title = properties.title;
+            this.isNav = properties.isNav;
+            this.autograph = properties.autograph;
             this.$emit("save",JSON.stringify({
                 title:this.title,
                 content:this.text,
