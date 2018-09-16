@@ -3,8 +3,12 @@
     <div class="onshare-notepad-title">
       <h2>{{title}}</h2>
     </div>
-    <textarea v-if="model == 1" readonly class="onshare-notepad-body" v-model="text" :style="{fontFamily:font}"></textarea>
-    <textarea v-if="model == 0" class="onshare-notepad-body" v-model="text" :style="{fontFamily:font}"></textarea>
+    <textarea v-if="model == 1" readonly class="onshare-notepad-body" v-model="text" :style="{fontFamily:font,height:height}"></textarea>
+    <textarea v-if="model == 0" class="onshare-notepad-body" v-model="text" :style="{fontFamily:font,height:height}"></textarea>
+    <div v-if="autograph" class="onshare-notepad-autograph">
+        <p>{{autograph.name}}</p>
+        <strong>{{autograph.time}}</strong>
+    </div>
     <Contextmenu>
         <MenuItem title="属性"><Property @save="updateProperty" :font="font" :title="title" /></MenuItem>
     </Contextmenu>
@@ -37,7 +41,8 @@ export default {
         return {
             text:this.content,
             title:"",
-            font:""
+            font:"",
+            autograph:null
         }
     },
     watch:{
@@ -45,18 +50,25 @@ export default {
             this.text = this.document.content;
             this.title = this.document.title;
             this.font = this.document.font;
+            this.autograph = this.document.autograph;
         },
         text(){
             if(this.content != this.text) {
                 this.$emit("save",JSON.stringify({
                     title:this.title,
                     content:this.text,
-                    font:this.font
+                    font:this.font,
+                    autograph:this.autograph
                 }));
             }
         },
         content(){
             this.text = this.content;
+        }
+    },
+    computed:{
+        height(){
+            return this.autograph ? "calc(100% - 130px)" : "calc(100% - 40px)";
         }
     },
     methods:{
@@ -66,7 +78,8 @@ export default {
             this.$emit("save",JSON.stringify({
                 title:this.title,
                 content:this.text,
-                font:this.font
+                font:this.font,
+                autograph:this.autograph
             }));
             this.$store.state.isNav = properties.isNav;
             console.log(properties)
@@ -77,7 +90,8 @@ export default {
             this.$emit("save",JSON.stringify({
                 title:this.title,
                 content:this.text,
-                font:this.font
+                font:this.font,
+                autograph:this.autograph
             }));
             this.$store.state.isNav = properties.isNav;
             console.log(properties)
@@ -113,7 +127,7 @@ export default {
 
   .onshare-notepad-body{
     width: 100%;
-    height: calc(100% - 30px);
+    height: calc(100% - 130px);
     background: #F7F7F7;
     /* background-color: #fff; */
     /* background-image: linear-gradient(rgba(53,85,131,0.1) 0%, rgba(255,255,255,0.2) 8%), url(http://memonotepad.com/img/paperfibers.png); */
@@ -125,5 +139,25 @@ export default {
     text-indent: 2em;
     border:none;
     resize: none;
+  }
+
+  .onshare-notepad-autograph{
+      height: 100px;
+      width: 100%;
+      text-align: right;
+      padding-right: 20px;
+      box-sizing: border-box;
+  }
+
+  @font-face {
+    font-family: 'xjsxt';
+    src: url('../assets/信笺手写体.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+  .onshare-notepad-autograph p{
+      font-family: '宋体';
+      font-size: 40px;
   }
 </style>
